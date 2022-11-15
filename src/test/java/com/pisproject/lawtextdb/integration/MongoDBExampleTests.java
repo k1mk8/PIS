@@ -27,4 +27,24 @@ public class MongoDBExampleTests {
             }
         }
     }
+    @Test
+    void readDataFromMongoDB2() {
+        String expectedName = "LawText2";
+        String expectedDesc = "example";
+        String uri = "mongodb://localhost:27017";
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase db = mongoClient.getDatabase("test");
+            MongoCollection<Document> coll = db.getCollection("lawText");
+            MongoCursor<Document> cursor = coll.find().iterator();
+            try {
+                while (cursor.hasNext()) {
+                    Document databaseDoc = cursor.next();
+                    assertEquals(databaseDoc.getString("name"), expectedName);
+                    assertEquals(databaseDoc.getString("description"), expectedDesc);
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+    }
 }
