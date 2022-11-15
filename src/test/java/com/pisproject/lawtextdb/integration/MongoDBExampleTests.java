@@ -1,4 +1,4 @@
-package com.pisproject.lawtextdb;
+package com.pisproject.lawtextdb.integration;
 
 import com.mongodb.client.*;
 import org.bson.Document;
