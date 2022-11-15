@@ -65,7 +65,7 @@ publishing {
 	}
 	repositories {
 		maven {
-			url 'https://localhost:9998/repository/maven-snapshots/'
+			url 'https://localhost:8081/repository/maven-snapshots/'
 		}
 	}
 }
