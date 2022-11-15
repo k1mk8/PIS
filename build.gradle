@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	id 'org.asciidoctor.convert' version '1.5.8'
 	id 'java'
+	id 'maven-publish'
 }
 
 group = 'com.pisproject'
@@ -15,8 +16,24 @@ configurations {
 	}
 }
 
+publishing {
+	publications {
+		maven(MavenPublication) {
+			groupId = 'org.gradle.sample'
+			artifactId = 'library'
+			version = '1.1'
+
+			from components.java
+		}
+	}
+}
+
 repositories {
 	mavenCentral()
+	maven {
+		name = 'PISNexus'
+		url = "127.0.0.1:8081"
+	}
 }
 
 ext {
