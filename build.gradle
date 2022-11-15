@@ -16,24 +16,8 @@ configurations {
 	}
 }
 
-publishing {
-	publications {
-		maven(MavenPublication) {
-			groupId = 'org.gradle.sample'
-			artifactId = 'library'
-			version = '1.1'
-
-			from components.java
-		}
-	}
-}
-
 repositories {
 	mavenCentral()
-	maven {
-		name = 'PISNexus'
-		url = "127.0.0.1:8081"
-	}
 }
 
 ext {
@@ -69,5 +53,19 @@ task integration(type: Test) {
 	outputs.dir snippetsDir
 	useJUnitPlatform{
 		exclude '**/unit'
+	}
+}
+
+publishing {
+	publications {
+		maven(MavenPublication) {
+			artifactId = 'gtm'
+			from components.java
+		}
+	}
+	repositories {
+		maven {
+			url 'https://localhost:9998/repository/maven-snapshots/'
+		}
 	}
 }
