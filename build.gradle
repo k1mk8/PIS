@@ -40,6 +40,7 @@ dependencies {
 tasks.named('test') {
 	outputs.dir snippetsDir
 	useJUnitPlatform()
+	exclude '**/integration'
 }
 
 tasks.named('asciidoctor') {
