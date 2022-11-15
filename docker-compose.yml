@@ -23,7 +23,7 @@ services:
   api:
     image: pisproject-test
     ports:
-      - "8080:8080"
+      - "8090:8090"
     build:
       context: .
       dockerfile: Dockerfile
