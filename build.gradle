@@ -67,6 +67,10 @@ publishing {
 		maven {
 			url 'http://localhost:8081/repository/maven-snapshots/'
 			allowInsecureProtocol = true
+			credentials{
+				username "admin"
+				password "jDbT629@"
+			}
 		}
 	}
 }
