@@ -1,5 +1,6 @@
 import React from 'react';
 import Tabs from './tabs.js'
+import Add from './addFile.js'
 
 import './App.css'
 
@@ -19,7 +20,7 @@ class App extends React.Component{
                     <p>Wyszukiwanie aktów... Coming soon</p>
                 </Tab>
                 <Tab title="Dodawanie aktów">
-                    <p>Dodawanie aktów... Coming soon</p>
+                    <Add/>
                 </Tab>
                 <Tab title="Admin">
                     <p>Logowanie aktów... Coming soon</p>
