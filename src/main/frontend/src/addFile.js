@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './addFile.css'
 
 class Add extends React.Component{

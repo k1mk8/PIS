@@ -1,6 +1,7 @@
 import React from 'react';
 import Tabs from './tabs.js'
 import Add from './addFile.js'
+import Find from './find.js'
 
 import './App.css'
 
@@ -17,7 +18,7 @@ class App extends React.Component{
                     <p>Witamy na stronie!</p>
                 </Tab>
                 <Tab title="Wyszukiwanie aktów">
-                    <p>Wyszukiwanie aktów... Coming soon</p>
+                    <Find/>
                 </Tab>
                 <Tab title="Dodawanie aktów">
                     <Add/>
