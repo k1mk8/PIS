@@ -5,6 +5,7 @@ plugins {
 	id 'java'
 	id 'maven-publish'
 	id "org.sonarqube" version "3.4.0.2513"
+	id "io.alcide.gradle-semantic-build-versioning" version "4.2.2"
 }
 
 group = 'com.pisproject'
