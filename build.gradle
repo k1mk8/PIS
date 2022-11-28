@@ -4,6 +4,7 @@ plugins {
 	id 'org.asciidoctor.convert' version '1.5.8'
 	id 'java'
 	id 'maven-publish'
+	id "org.sonarqube" version "3.4.0.2513"
 }
 
 group = 'com.pisproject'
@@ -72,5 +73,11 @@ publishing {
 				password "jDbT629@"
 			}
 		}
+	}
+}
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "pisproject"
 	}
 }
