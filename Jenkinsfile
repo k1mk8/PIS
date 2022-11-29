@@ -108,12 +108,12 @@ pipeline {
             }
         }
 
-        stage('Cleanup') {
-          steps {
-                sh 'docker compose down'
-          }
-        }
-
+//         stage('Cleanup') {
+//           steps {
+//                 sh 'docker compose down'
+//           }
+//         }
+//
 //         stage('Deploy cleanup') {
 //           when{
 //               branch 'PPBAP-25-deployment-pipeline'
