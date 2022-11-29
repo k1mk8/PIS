@@ -62,15 +62,6 @@ pipeline {
             }
         }
 
-        stage("Update version number in repo"){
-            steps{
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'sdyszews', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-                    sh('git commit -am "Aktualizacja numeru wersji"')
-                    sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@https://gitlab-stud.elka.pw.edu.pl/pkosmala/pis22z-projekt-baza-aktow-prawnych')
-                }
-            }
-        }
-
         stage('Cleanup') {
           steps {
                 sh 'docker-compose down'
