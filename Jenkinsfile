@@ -20,6 +20,15 @@ pipeline {
 
     stages {
 
+        stage('Main Pull') {
+            when{
+                branch 'PPBAP-25-deployment-pipeline'
+            }
+            steps {
+                git branch: 'PPBAP-25-deployment-pipeline', credentialsId: 'sdyszews', url: 'https://gitlab-stud.elka.pw.edu.pl/pkosmala/pis22z-projekt-baza-aktow-prawnych'
+            }
+        }
+
         stage('Develop Pull') {
             when{
                 branch 'develop'
@@ -66,6 +75,16 @@ pipeline {
             steps {
                 sh './gradlew incrementVersion --versionIncrementType=PATCH -Psnapshot'
                 sh './gradlew publish'
+            }
+        }
+
+        stage('Publish release to nexus') {
+            when{
+                branch 'develop'
+            }
+            steps {
+                sh './gradlew incrementVersion --versionIncrementType=MINOR'
+                sh './gradlew publish -Prelease'
             }
         }
 
