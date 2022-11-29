@@ -2,6 +2,11 @@ pipeline {
 
     agent any
 
+    options {
+        gitLabConnection('pis-project')
+        gitlabBuilds(builds: ['jenkins-pipeline'])
+    }
+
     post {
       failure {
         updateGitlabCommitStatus name: 'jenkins-pipeline', state: 'failed'
