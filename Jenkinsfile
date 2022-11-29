@@ -99,12 +99,10 @@ pipeline {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'pisproject-aws', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh 'docker-machine ls'
                     sh 'aws ec2 start-instances --instance-ids i-03d8e699c2d78a9d9 i-08f11770857c72347'
-                    sh 'echo jDbT629@ | sudo -S adduser jenkins sudo'
-                    sh 'echo jenkinspis06 | sudo -S su pkosmala'
-                    sh 'echo jDbT629@ | sudo -S docker-machine create --driver generic --generic-ip-address=44.212.197.238 --generic-ssh-key /home/pkosmala/.docker/machine/machines/pisproject/id_rsa --generic-ssh-user ubuntu pisproject-deploy'
-                    sleep 60
-                    sh 'docker-machine env pisproject-deploy'
-                    sh 'eval $(docker-machine env pisproject-deploy)'
+                    sh 'docker-machine create -d amazonec2 --amazonec2-vpc-id vpc-020d10ef669de787b --amazonec2-ami ami-072d6c9fae3253f26 pisproject-2'
+                    sleep 120
+                    sh 'docker-machine env pisproject-2'
+                    sh 'eval $(docker-machine env pisproject-2)'
                     sh 'docker compose build'
                     sh 'docker compose up -d'
                 }
