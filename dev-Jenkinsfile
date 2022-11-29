@@ -32,15 +32,15 @@ pipeline {
 
         stage('Docker') {
             steps {
-                sh 'docker build --platform linux/amd64 -t pisproject-api .'
-                sh 'docker-compose up -d'
+                sh 'docker compose build'
+                sh 'docker compose up -d'
             }
         }
 
         stage('Test') {
           steps {
-                sh './gradlew clean test --info'
-                sh './gradlew clean integration --info'
+                sh './gradlew clean test'
+                sh './gradlew clean integration'
           }
         }
 
