@@ -16,9 +16,9 @@ pipeline {
 
     stages {
 
-        stage('Develop Pull') {
+        stage('Git Pull') {
             steps {
-                git branch: gitlabSourceBranch, credentialsId: 'sdyszews', url: 'https://gitlab-stud.elka.pw.edu.pl/pkosmala/pis22z-projekt-baza-aktow-prawnych'
+                git branch: branch, credentialsId: 'sdyszews', url: 'https://gitlab-stud.elka.pw.edu.pl/pkosmala/pis22z-projekt-baza-aktow-prawnych'
             }
         }
 
