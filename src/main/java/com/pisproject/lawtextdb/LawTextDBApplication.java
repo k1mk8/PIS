@@ -1,6 +1,7 @@
 package com.pisproject.lawtextdb;
 
 import com.mongodb.client.*;
+import com.mongodb.client.result.InsertOneResult;
 import org.bson.Document;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,11 +28,26 @@ public class LawTextDBApplication {
 			MongoCursor<Document> cursor = coll.find().iterator();
 			try {
 				Document databaseDoc = cursor.next();
+				while(cursor.hasNext()){
+					databaseDoc = cursor.next();
+				}
 				return databaseDoc.toString();
 			} finally {
 				cursor.close();
 			}
 		}
+	}
+
+	@RequestMapping("/db/add")
+	public String saveDataToMongoDB() {
+		String uri = "mongodb://mongodb:27017";
+		try (MongoClient mongoClient = MongoClients.create(uri)) {
+			MongoDatabase db = mongoClient.getDatabase("test");
+			MongoCollection<Document> coll = db.getCollection("lawText");
+			Document doc1 = new Document("name", "LawText2").append("description", "example");
+			InsertOneResult result = coll.insertOne(doc1);
+		}
+		return "Dodano wiersz";
 	}
 
 	public static void main(String[] args) {
