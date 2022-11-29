@@ -80,7 +80,7 @@ pipeline {
 
         stage('Publish release to nexus') {
             when{
-                branch 'develop'
+                branch 'PPBAP-25-deployment-pipeline'
             }
             steps {
                 sh './gradlew incrementVersion --versionIncrementType=MINOR'
