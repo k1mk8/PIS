@@ -9,7 +9,7 @@ pipeline {
 
     post {
       success {
-        gitlabCommitStatus(name: 'jenkins-pipeline', connection: gitLabConnection('pis-project'))
+        gitlabCommitStatus name: 'jenkins-pipeline', connection: gitLabConnection('pis-project')
       }
     }
 
