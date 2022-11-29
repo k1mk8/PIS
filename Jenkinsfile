@@ -97,10 +97,9 @@ pipeline {
             }
             steps{
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'pisproject-aws', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    sh 'docker-machine ls'
-                    sh 'aws ec2 start-instances --instance-ids i-03d8e699c2d78a9d9 i-08f11770857c72347'
-                    sh 'docker-machine create -d amazonec2 --amazonec2-vpc-id vpc-020d10ef669de787b --amazonec2-ami ami-072d6c9fae3253f26 pisproject-2'
-                    sleep 120
+                    sh 'aws ec2 start-instances --instance-ids i-068060ba98cc920a3 i-08f11770857c72347'
+                    sleep 60
+                    sh 'echo y | docker-machine regenerate-certs pisproject-2'
                     sh 'docker-machine env pisproject-2'
                     sh 'eval $(docker-machine env pisproject-2)'
                     sh 'docker compose build'
@@ -115,15 +114,15 @@ pipeline {
           }
         }
 
-        stage('Deploy cleanup') {
-          when{
-              branch 'PPBAP-25-deployment-pipeline'
-          }
-          steps{
-              withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'pisproject-aws', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                  sh 'aws ec2 stop-instances --instance-ids i-03d8e699c2d78a9d9 i-08f11770857c72347'
-              }
-          }
-        }
+//         stage('Deploy cleanup') {
+//           when{
+//               branch 'PPBAP-25-deployment-pipeline'
+//           }
+//           steps{
+//               withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'pisproject-aws', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+//                   sh 'aws ec2 stop-instances --instance-ids i-068060ba98cc920a3 i-08f11770857c72347'
+//               }
+//           }
+//         }
     }
 }
