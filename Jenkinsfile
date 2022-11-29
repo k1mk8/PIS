@@ -111,6 +111,7 @@ pipeline {
                     sh 'docker compose ps'
                     sh 'docker compose ps'
                     sh 'docker compose ps'
+                    sleep 120
                 }
             }
         }
