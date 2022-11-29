@@ -8,14 +8,8 @@ pipeline {
     }
 
     post {
-      failure {
-        updateGitlabCommitStatus name: 'jenkins-pipeline', state: 'failed'
-      }
       success {
-        updateGitlabCommitStatus name: 'jenkins-pipeline', state: 'success'
-      }
-      aborted {
-        updateGitlabCommitStatus name: 'jenkins-pipeline', state: 'canceled'
+        gitlabCommitStatus(name: 'jenkins-pipeline', connection: gitLabConnection('pis-project'))
       }
     }
 
@@ -32,7 +26,6 @@ pipeline {
 
         stage('Gradle Build') {
             steps {
-                updateGitlabCommitStatus name: 'jenkins-pipeline', state: 'running'
                 sh '/home/pkosmala/.sdkman/candidates/gradle/current/bin/gradle wrapper build'
             }
         }
