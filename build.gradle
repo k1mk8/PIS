@@ -72,7 +72,7 @@ publishing {
 	publications {
 		maven(MavenPublication) {
 			artifactId = 'gtm'
-			version = project.hasProperty('release') ? version : version.concat('SNAPSHOT')
+			version = project.hasProperty('release') ? version.substring(0, version.length() - 9) : version
 			from components.java
 		}
 	}
