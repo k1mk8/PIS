@@ -104,7 +104,13 @@ pipeline {
                     sh 'eval $(docker-machine env pisproject-2)'
                     sh 'docker compose ps'
                     sh 'docker compose build'
-                    sh 'export JENKINS_NODE_COOKIE=dontKillMe && docker compose up -d'
+                    sh 'docker compose ps'
+                    sh 'docker compose up -d'
+                    sh 'docker compose ps'
+                    sh 'docker compose ps'
+                    sh 'docker compose ps'
+                    sh 'docker compose ps'
+                    sh 'docker compose ps'
                 }
             }
         }
