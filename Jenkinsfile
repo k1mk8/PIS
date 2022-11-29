@@ -22,10 +22,10 @@ pipeline {
 
         stage('Develop Pull') {
             when{
-                branch 'PPBAP-23-development-pipeline'
+                branch 'develop'
             }
             steps {
-                git branch: 'PPBAP-23-development-pipeline', credentialsId: 'sdyszews', url: 'https://gitlab-stud.elka.pw.edu.pl/pkosmala/pis22z-projekt-baza-aktow-prawnych'
+                git branch: 'develop', credentialsId: 'sdyszews', url: 'https://gitlab-stud.elka.pw.edu.pl/pkosmala/pis22z-projekt-baza-aktow-prawnych'
             }
         }
 
@@ -61,7 +61,7 @@ pipeline {
 
         stage('Publish snapshot to nexus') {
             when{
-                branch 'PPBAP-23-development-pipeline'
+                branch 'develop'
             }
             steps {
                 sh './gradlew incrementVersion --versionIncrementType=PATCH -Psnapshot'
