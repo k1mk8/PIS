@@ -79,7 +79,7 @@ publishing {
 	repositories {
 		maven {
 			def snapshotsRepoUrl = 'http://localhost:8081/repository/maven-snapshots/'
-			def releaseRepoUrl = 'http://localhost:8081/repository/maven-release/'
+			def releaseRepoUrl = 'http://localhost:8081/repository/maven-releases/'
 			url = project.hasProperty('release') ? releaseRepoUrl : snapshotsRepoUrl
 			allowInsecureProtocol = true
 			credentials{
