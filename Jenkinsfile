@@ -16,9 +16,12 @@ pipeline {
 
     stages {
 
-        stage('Git Pull') {
+        stage('Develop Pull') {
+            when{
+                branch 'PPBAP-23-development-pipeline'
+            }
             steps {
-                git branch: branch, credentialsId: 'sdyszews', url: 'https://gitlab-stud.elka.pw.edu.pl/pkosmala/pis22z-projekt-baza-aktow-prawnych'
+                git branch: 'PPBAP-23-development-pipeline', credentialsId: 'sdyszews', url: 'https://gitlab-stud.elka.pw.edu.pl/pkosmala/pis22z-projekt-baza-aktow-prawnych'
             }
         }
 
