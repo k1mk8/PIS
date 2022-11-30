@@ -102,7 +102,7 @@ pipeline {
                     sh 'echo y | docker-machine regenerate-certs pisproject-2'
                     sh '''
                     eval $(docker-machine env pisproject-2)
-                    sh './gradlew clean build'
+                    /home/pkosmala/.sdkman/candidates/gradle/current/bin/gradle wrapper clean build
                     docker compose down
                     docker compose build
                     docker compose up -d
