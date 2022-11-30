@@ -98,10 +98,11 @@ pipeline {
             steps{
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'pisproject-aws', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh 'aws ec2 start-instances --instance-ids i-068060ba98cc920a3 i-08f11770857c72347'
-                    sleep 60
+                    // sleep 60
                     sh 'echo y | docker-machine regenerate-certs pisproject-2'
                     sh '''
                     eval $(docker-machine env pisproject-2)
+                    sh './gradlew clean build'
                     docker compose down
                     docker compose build
                     docker compose up -d
