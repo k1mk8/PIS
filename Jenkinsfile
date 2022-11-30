@@ -118,16 +118,5 @@ pipeline {
                 sh 'docker compose down'
           }
         }
-
-        stage('Deploy cleanup') {
-          when{
-              branch 'main'
-          }
-          steps{
-              withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'pisproject-aws', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                  sh 'aws ec2 stop-instances --instance-ids i-068060ba98cc920a3 i-08f11770857c72347'
-              }
-          }
-        }
     }
 }
