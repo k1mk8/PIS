@@ -51,7 +51,7 @@ pipeline {
 
         stage('Docker') {
             steps {
-                sh 'docker build --platform linux/amd64 -t pisproject-api .'
+                sh 'docker compose build'
                 sh 'docker compose up -d'
             }
         }
@@ -103,7 +103,7 @@ pipeline {
                     sh '''
                     eval $(docker-machine env pisproject-2)
                     docker compose down
-                    docker build --platform linux/amd64 -t pisproject-api .
+                    docker compose build
                     docker compose up -d
                     docker compose ps
                     eval $(docker-machine env -u)

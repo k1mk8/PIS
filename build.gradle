@@ -16,6 +16,14 @@ plugins {
 	id "org.sonarqube" version "3.4.0.2513"
 }
 
+jar {
+	manifest {
+		attributes(
+				'Main-Class': 'com.pisproject.lawtextdb.LawTextDBApplication'
+		)
+	}
+}
+
 version = "0.1.4"
 apply plugin: "com.dipien.semantic-version"
 
