@@ -97,11 +97,12 @@ pipeline {
             }
             steps{
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'pisproject-aws', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh 'docker compose ps'
                     sh 'aws ec2 start-instances --instance-ids i-068060ba98cc920a3 i-08f11770857c72347'
-                    sleep 6
-                    sh 'echo y | docker-machine regenerate-certs pisproject-2'
+                    sleep 1
                     sh 'docker-machine env pisproject-2'
                     sh 'eval $(docker-machine env pisproject-2)'
+                    sh 'docker-machine ls'
                     sh 'docker compose ps'
                     sh 'docker compose build'
                     sh 'docker compose ps'
@@ -111,7 +112,7 @@ pipeline {
                     sh 'docker compose ps'
                     sh 'docker compose ps'
                     sh 'docker compose ps'
-                    sleep 120
+                    sh 'eval $(docker-machine env -u)'
                 }
             }
         }
