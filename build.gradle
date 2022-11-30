@@ -17,14 +17,11 @@ plugins {
 }
 
 jar {
-	manifest {
-		attributes(
-				'Main-Class': 'com.pisproject.lawtextdb.LawTextDBApplication'
-		)
-	}
+	enabled = true
+	archiveClassifier.set ('')
 }
 
-version = "0.1.4"
+version = "0.1.5"
 apply plugin: "com.dipien.semantic-version"
 
 group = 'com.pisproject'
