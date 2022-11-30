@@ -100,19 +100,14 @@ pipeline {
                     sh 'docker compose ps'
                     sh 'aws ec2 start-instances --instance-ids i-068060ba98cc920a3 i-08f11770857c72347'
                     sleep 1
-                    sh 'docker-machine env pisproject-2'
-                    sh 'eval $(docker-machine env pisproject-2)'
-                    sh 'docker-machine ls'
-                    sh 'docker compose ps'
-                    sh 'docker compose build'
-                    sh 'docker compose ps'
-                    sh 'docker compose up -d'
-                    sh 'docker compose ps'
-                    sh 'docker compose ps'
-                    sh 'docker compose ps'
-                    sh 'docker compose ps'
-                    sh 'docker compose ps'
-                    sh 'eval $(docker-machine env -u)'
+                    sh '''
+                    eval $(docker-machine env pisproject-2)'
+                    docker-machine ls
+                    docker compose build
+                    docker compose up -d
+                    docker compose ps
+                    eval $(docker-machine env -u)
+                    '''
                 }
             }
         }
