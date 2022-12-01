@@ -2,6 +2,9 @@ pipeline {
 
     agent any
 
+    environment{
+        AWS_DEFAULT_REGION='us-east-1'
+    }
     options {
         gitLabConnection('pis-project')
     }
@@ -19,6 +22,15 @@ pipeline {
     }
 
     stages {
+
+        stage('Main Pull') {
+            when{
+                branch 'main'
+            }
+            steps {
+                git branch: 'main', credentialsId: 'sdyszews', url: 'https://gitlab-stud.elka.pw.edu.pl/pkosmala/pis22z-projekt-baza-aktow-prawnych'
+            }
+        }
 
         stage('Develop Pull') {
             when{
@@ -66,6 +78,38 @@ pipeline {
             steps {
                 sh './gradlew incrementVersion --versionIncrementType=PATCH -Psnapshot'
                 sh './gradlew publish'
+            }
+        }
+
+        stage('Publish release to nexus') {
+            when{
+                branch 'main'
+            }
+            steps {
+                sh './gradlew incrementVersion --versionIncrementType=MINOR'
+                sh './gradlew publish -Prelease'
+            }
+        }
+
+        stage('Deploy to AWS EC2'){
+            when{
+                branch 'main'
+            }
+            steps{
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'pisproject-aws', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh 'aws ec2 start-instances --instance-ids i-068060ba98cc920a3 i-08f11770857c72347'
+                    sleep 60
+                    sh 'echo y | docker-machine regenerate-certs pisproject-2'
+                    sh '''
+                    eval $(docker-machine env pisproject-2)
+                    /home/pkosmala/.sdkman/candidates/gradle/current/bin/gradle wrapper clean build
+                    docker compose down
+                    docker compose build
+                    docker compose up -d
+                    docker compose ps
+                    eval $(docker-machine env -u)
+                    '''
+                }
             }
         }
 

@@ -8,7 +8,7 @@ buildscript {
 }
 
 plugins {
-	id 'org.springframework.boot' version '2.7.5'
+	id 'org.springframework.boot' version '3.0.0'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	id 'org.asciidoctor.convert' version '1.5.8'
 	id 'java'
@@ -16,8 +16,13 @@ plugins {
 	id "org.sonarqube" version "3.4.0.2513"
 }
 
-version = "0.0.3"
-apply plugin: "com.dipien.semantic-version"
+jar {
+	enabled = false
+}
+
+version = "0.1.5"
+apply plugin: 'com.dipien.semantic-version'
+apply plugin: 'java'
 
 group = 'com.pisproject'
 sourceCompatibility = '17'
@@ -79,7 +84,7 @@ publishing {
 	repositories {
 		maven {
 			def snapshotsRepoUrl = 'http://localhost:8081/repository/maven-snapshots/'
-			def releaseRepoUrl = 'http://localhost:8081/repository/maven-release/'
+			def releaseRepoUrl = 'http://localhost:8081/repository/maven-releases/'
 			url = project.hasProperty('release') ? releaseRepoUrl : snapshotsRepoUrl
 			allowInsecureProtocol = true
 			credentials{
