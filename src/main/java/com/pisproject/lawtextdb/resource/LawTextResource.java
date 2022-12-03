@@ -1,37 +1,37 @@
 package com.pisproject.lawtextdb.resource;
 
 import com.pisproject.lawtextdb.model.LawText;
-import com.pisproject.lawtextdb.repository.LawTextRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.pisproject.lawtextdb.service.LawTextService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/rest/lawTexts")
+@RequestMapping("/")
 public class LawTextResource {
 
-    private final LawTextRepository repository;
+    @Autowired
+    LawTextService service;
 
-    public LawTextResource(LawTextRepository repository) {
-        this.repository = repository;
-    }
-
-    @GetMapping("/all")
-    public List<LawText> getAll() {
-        return repository.findAll();
-    }
-
-    @GetMapping("/find/{id}")
-    public Optional<LawText> getByIt(@PathVariable("id") int id) {
-        return repository.findById(id);
-    }
-
-    @GetMapping("/hello")
+    @GetMapping("/")
     public String hello() {
         return "Hello";
+    }
+
+    @GetMapping("/lawTexts")
+    public List<LawText> getAll() {
+        return service.getAll();
+    }
+
+    @GetMapping("/lawTexts/{id}")
+    public Optional<LawText> getById(@PathVariable("id") int id) {
+        return service.getById(id);
+    }
+
+    @PostMapping("lawTexts/add")
+    public LawText addLawText(@RequestBody LawText newLawText) {
+        return service.addLawText(newLawText);
     }
 }
