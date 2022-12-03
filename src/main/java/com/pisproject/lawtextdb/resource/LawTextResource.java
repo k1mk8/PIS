@@ -26,8 +26,8 @@ public class LawTextResource {
     }
 
     @GetMapping("/lawTexts/{id}")
-    public Optional<LawText> getById(@PathVariable("id") int id) {
-        return service.getById(id);
+    public Optional<LawText> getLawTextById(@PathVariable("id") int id) {
+        return service.getLawTextById(id);
     }
 
     @PostMapping("lawTexts/add")

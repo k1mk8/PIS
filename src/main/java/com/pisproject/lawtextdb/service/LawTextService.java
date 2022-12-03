@@ -20,7 +20,7 @@ public class LawTextService implements ILawTextService{
     }
 
     @Override
-    public Optional<LawText> getById(int id) {
+    public Optional<LawText> getLawTextById(int id) {
         return repository.findById(id);
     }
 

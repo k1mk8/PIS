@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface ILawTextService {
     List<LawText> getAll();
-    Optional<LawText> getById(int id);
+    Optional<LawText> getLawTextById(int id);
     LawText addLawText(LawText newLawText);
 }
