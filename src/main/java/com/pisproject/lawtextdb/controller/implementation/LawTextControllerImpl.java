@@ -6,6 +6,7 @@ import com.pisproject.lawtextdb.service.LawTextService;
 import com.pisproject.lawtextdb.service.PrimarySequenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +41,12 @@ public class LawTextControllerImpl implements LawTextController {
     @PostMapping("lawTexts/add")
     public LawText addLawText(@RequestBody LawText newLawText) {
         return lawTextService.addLawText(newLawText);
+    }
+
+    @Override
+    @PostMapping("lawTexts/uploadFile")
+    public LawText addLawText(@RequestBody MultipartFile file) {
+        return lawTextService.addLawText(file);
     }
 
     @Override
