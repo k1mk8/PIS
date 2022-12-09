@@ -35,5 +35,13 @@ public class PrimarySequenceService {
         return primarySequence.getSeq();
     }
 
+    public void resetSequence() {
+        mongoOperations.findAndModify(
+                query(where("_id").is(PRIMARY_SEQUENCE)),
+                new Update().set("seq", 9999),
+                options().returnNew(true),
+                PrimarySequence.class);
+    }
+
 }
 

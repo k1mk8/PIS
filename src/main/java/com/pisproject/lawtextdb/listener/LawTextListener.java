@@ -1,4 +1,4 @@
-package com.pisproject.lawtextdb.resource;
+package com.pisproject.lawtextdb.listener;
 
 import com.pisproject.lawtextdb.model.LawText;
 import com.pisproject.lawtextdb.service.PrimarySequenceService;
