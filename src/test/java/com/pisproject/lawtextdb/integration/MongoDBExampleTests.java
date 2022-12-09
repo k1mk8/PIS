@@ -10,7 +10,7 @@ public class MongoDBExampleTests {
     @Test
     void readDataFromMongoDB() {
         String expectedName = "LawText1";
-        String expectedDesc = "test";
+        String expectedRawText = "test";
         String uri = "mongodb://localhost:27017";
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase db = mongoClient.getDatabase("test");
@@ -19,7 +19,7 @@ public class MongoDBExampleTests {
                 if (cursor.hasNext()) {
                     Document databaseDoc = cursor.next();
                     assertEquals(expectedName, databaseDoc.getString("name"));
-                    assertEquals(expectedDesc, databaseDoc.getString("description"));
+                    assertEquals(expectedRawText, databaseDoc.getString("rawText"));
                 }
             }
         }
