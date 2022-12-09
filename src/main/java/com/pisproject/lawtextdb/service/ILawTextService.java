@@ -9,4 +9,5 @@ public interface ILawTextService {
     List<LawText> getAll();
     Optional<LawText> getLawTextById(int id);
     LawText addLawText(LawText newLawText);
+    String deleteAllLawTexts();
 }

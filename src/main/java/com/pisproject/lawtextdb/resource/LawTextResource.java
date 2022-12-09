@@ -34,4 +34,9 @@ public class LawTextResource {
     public LawText addLawText(@RequestBody LawText newLawText) {
         return service.addLawText(newLawText);
     }
+
+    @DeleteMapping("lawTexts/deleteAll")
+    public String deleteAllLawTexts() {
+        return service.deleteAllLawTexts();
+    }
 }

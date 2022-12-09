@@ -24,13 +24,14 @@ public class LawTextService implements ILawTextService{
         return repository.findById(id);
     }
 
-//    @Override
-//    public Optional<LawText> getById(int id) {
-//        return repository.findById(id).orElse(new LawText());
-//    }
-
     @Override
     public LawText addLawText(LawText newLawText) {
         return repository.save(newLawText);
+    }
+
+    @Override
+    public String deleteAllLawTexts() {
+        repository.deleteAll();
+        return "Deleted all files.";
     }
 }

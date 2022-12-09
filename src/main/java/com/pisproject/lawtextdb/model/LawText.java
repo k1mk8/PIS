@@ -10,11 +10,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class LawText {
 
     @Id
-    private int id;
+    private Integer id;
     private String name;
     private String description;
 
-    public LawText(int id, String name, String description) {
+    public LawText() {
+    }
+
+    public LawText(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public LawText(Integer id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
