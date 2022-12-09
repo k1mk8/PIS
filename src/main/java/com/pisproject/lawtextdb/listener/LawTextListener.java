@@ -1,7 +1,7 @@
 package com.pisproject.lawtextdb.listener;
 
 import com.pisproject.lawtextdb.model.LawText;
-import com.pisproject.lawtextdb.service.PrimarySequenceService;
+import com.pisproject.lawtextdb.service.implementation.PrimarySequenceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 public class LawTextListener extends AbstractMongoEventListener<LawText> {
 
     @Autowired
-    private final PrimarySequenceService primarySequenceService;
+    private final PrimarySequenceServiceImpl primarySequenceService;
 
-    public LawTextListener(final PrimarySequenceService primarySequenceService) {
+    public LawTextListener(final PrimarySequenceServiceImpl primarySequenceService) {
         this.primarySequenceService = primarySequenceService;
     }
 
