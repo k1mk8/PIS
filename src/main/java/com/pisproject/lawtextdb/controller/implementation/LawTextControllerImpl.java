@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,9 +30,21 @@ public class LawTextControllerImpl implements LawTextController {
     }
 
     @Override
-    @GetMapping("/lawTexts/{id}")
+    @GetMapping("/lawTexts/findById/{id}")
     public Optional<LawText> getLawTextById(@PathVariable("id") int id) {
         return lawTextService.getLawTextById(id);
+    }
+
+    @Override
+    @GetMapping("/lawTexts/findByName/{name}")
+    public ArrayList<Optional<LawText>> getLawTextByName(@PathVariable("name") String name) {
+        return lawTextService.getLawTextByName(name);
+    }
+
+    @Override
+    @GetMapping("/lawTexts/findByRawText/{rawText}")
+    public ArrayList<Optional<LawText>> getLawTextByRawText(@PathVariable("rawText") String rawText) {
+        return lawTextService.getLawTextByRawText(rawText);
     }
 
     @Override
