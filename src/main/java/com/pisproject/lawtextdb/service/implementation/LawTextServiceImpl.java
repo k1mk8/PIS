@@ -43,6 +43,7 @@ public class LawTextServiceImpl implements LawTextService {
         return lawTextRepository.findById(id);
     }
 
+    @Override
     public ArrayList<Optional<LawText>> getLawTextByName(String name) {
         List<SolrLawText> solrLawTexts = solrLawTextRepository.findByName(name);
         ArrayList<Optional<LawText>> lawTexts = new ArrayList<>();
@@ -54,6 +55,7 @@ public class LawTextServiceImpl implements LawTextService {
         return lawTexts;
     }
 
+    @Override
     public ArrayList<Optional<LawText>> getLawTextByRawText(String rawText) {
         List<SolrLawText> solrLawTexts = solrLawTextRepository.findByRawText(rawText);
         ArrayList<Optional<LawText>> lawTexts = new ArrayList<>();

@@ -12,11 +12,12 @@ public class SolrLawText {
     @Id
     private String id;
 
-    @Indexed(type = "text_ik")
+    @Indexed(type = "text_en")
     private String name;
 
-    @Indexed(type = "text_ik")
+    @Indexed(type = "text_en")
     private String rawText;
 
+    @Indexed(type = "id")
     private int lawTextId;
 }
