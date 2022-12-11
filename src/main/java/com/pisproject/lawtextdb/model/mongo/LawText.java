@@ -22,16 +22,14 @@ public class LawText {
     private LocalDateTime uploadDate;
     private boolean accepted;
     private Binary file;
-    private String rawText;
     private ArrayList<Integer> references;
 
     public LawText() {
     }
 
-    public LawText(Integer id, String name, String rawText) {
+    public LawText(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.rawText = rawText;
     }
 
     public LawText(MultipartFile file) throws IOException {

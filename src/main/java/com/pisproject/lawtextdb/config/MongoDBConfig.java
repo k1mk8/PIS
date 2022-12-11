@@ -14,9 +14,9 @@ public class MongoDBConfig {
     @Bean
     CommandLineRunner commandLineRunner(LawTextRepository repository) {
         return strings -> {
-            repository.save(new LawText(1, "LawText1", "test"));
-            repository.save(new LawText(2, "LawText2", "test"));
-            repository.save(new LawText(3, "LawText3", "test"));
+            repository.save(new LawText(1, "LawText1"));
+            repository.save(new LawText(2, "LawText2"));
+            repository.save(new LawText(3, "LawText3"));
         };
     }
 
