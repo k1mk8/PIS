@@ -1,9 +1,8 @@
 package com.pisproject.lawtextdb.controller.implementation;
 
 import com.pisproject.lawtextdb.controller.LawTextController;
-import com.pisproject.lawtextdb.model.LawText;
+import com.pisproject.lawtextdb.model.mongo.LawText;
 import com.pisproject.lawtextdb.service.LawTextService;
-import com.pisproject.lawtextdb.service.PrimarySequenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,8 +16,6 @@ public class LawTextControllerImpl implements LawTextController {
 
     @Autowired
     LawTextService lawTextService;
-    @Autowired
-    PrimarySequenceService primarySequenceService;
 
     @GetMapping("/")
     public String hello() {
@@ -52,7 +49,7 @@ public class LawTextControllerImpl implements LawTextController {
     @Override
     @DeleteMapping("lawTexts/deleteAll")
     public String deleteAllLawTexts() {
-        primarySequenceService.resetSequence();
-        return lawTextService.deleteAllLawTexts();
+        lawTextService.deleteAllLawTexts();
+        return "Deleted all files.";
     }
 }

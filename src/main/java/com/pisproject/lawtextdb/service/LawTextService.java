@@ -1,6 +1,6 @@
 package com.pisproject.lawtextdb.service;
 
-import com.pisproject.lawtextdb.model.LawText;
+import com.pisproject.lawtextdb.model.mongo.LawText;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -11,5 +11,5 @@ public interface LawTextService {
     Optional<LawText> getLawTextById(int id);
     LawText addLawText(LawText newLawText);
     LawText addLawText(MultipartFile file);
-    String deleteAllLawTexts();
+    void deleteAllLawTexts();
 }

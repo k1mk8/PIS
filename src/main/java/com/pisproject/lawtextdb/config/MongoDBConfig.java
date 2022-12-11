@@ -1,7 +1,7 @@
 package com.pisproject.lawtextdb.config;
 
-import com.pisproject.lawtextdb.model.LawText;
-import com.pisproject.lawtextdb.repository.LawTextRepository;
+import com.pisproject.lawtextdb.model.mongo.LawText;
+import com.pisproject.lawtextdb.repository.mongo.LawTextRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,8 +1,9 @@
 package com.pisproject.lawtextdb.service.implementation;
 
-import com.pisproject.lawtextdb.model.LawText;
-import com.pisproject.lawtextdb.repository.LawTextRepository;
+import com.pisproject.lawtextdb.model.mongo.LawText;
+import com.pisproject.lawtextdb.repository.mongo.LawTextRepository;
 import com.pisproject.lawtextdb.service.LawTextService;
+import com.pisproject.lawtextdb.service.PrimarySequenceService;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -22,6 +23,9 @@ public class LawTextServiceImpl implements LawTextService {
 
     @Autowired
     private LawTextRepository repository;
+
+    @Autowired
+    private PrimarySequenceService primarySequenceService;
 
     @Override
     public List<LawText> getAll() {
@@ -69,8 +73,8 @@ public class LawTextServiceImpl implements LawTextService {
     }
 
     @Override
-    public String deleteAllLawTexts() {
+    public void deleteAllLawTexts() {
         repository.deleteAll();
-        return "Deleted all files.";
+        primarySequenceService.resetSequence();
     }
 }

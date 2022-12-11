@@ -1,4 +1,4 @@
-package com.pisproject.lawtextdb.model;
+package com.pisproject.lawtextdb.model.mongo;
 
 
 import lombok.Data;
@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Data
 @Document(collection = "lawText")
@@ -22,6 +23,7 @@ public class LawText {
     private boolean accepted;
     private Binary file;
     private String rawText;
+    private ArrayList<Integer> references;
 
     public LawText() {
     }

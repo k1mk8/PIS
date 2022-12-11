@@ -1,6 +1,6 @@
 package com.pisproject.lawtextdb.controller;
 
-import com.pisproject.lawtextdb.model.LawText;
+import com.pisproject.lawtextdb.model.mongo.LawText;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;

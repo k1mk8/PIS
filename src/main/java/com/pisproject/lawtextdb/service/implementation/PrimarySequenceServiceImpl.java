@@ -1,6 +1,6 @@
 package com.pisproject.lawtextdb.service.implementation;
 
-import com.pisproject.lawtextdb.model.PrimarySequence;
+import com.pisproject.lawtextdb.model.mongo.PrimarySequence;
 import com.pisproject.lawtextdb.service.PrimarySequenceService;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Update;

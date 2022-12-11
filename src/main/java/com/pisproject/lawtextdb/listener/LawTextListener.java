@@ -1,6 +1,6 @@
 package com.pisproject.lawtextdb.listener;
 
-import com.pisproject.lawtextdb.model.LawText;
+import com.pisproject.lawtextdb.model.mongo.LawText;
 import com.pisproject.lawtextdb.service.implementation.PrimarySequenceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;

@@ -1,4 +1,4 @@
-package com.pisproject.lawtextdb.model;
+package com.pisproject.lawtextdb.model.mongo;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
