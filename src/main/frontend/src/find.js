@@ -16,6 +16,7 @@ class Find extends React.Component{
 
     load (url) {
       return new Promise(async function (resolve, reject) {
+        alert(url);
         const res = await fetch(url)
         resolve(res.json())
       })
@@ -34,9 +35,12 @@ class Find extends React.Component{
         }
         else
         {
-            const promise = this.load(`localhost:8082/lawTexts/findByName/${this.state.value}`);
+            const promise = this.load('http://localhost:8082/lawTexts/findByName/'+this.state.value+'');
                  promise.then((objects) => {
                        for (const object of objects){
+                             if(object == null){
+                                continue;
+                             }
                              alert('Informacje o dokumentach: \nID: ' + JSON.stringify(object.id) + '\nName: ' + JSON.stringify(object.name) + '\nUpload Date: ' + JSON.stringify(object.uploadDate) + '\nAccepted: ' + JSON.stringify(object.accepted) + '\nFile: ' + JSON.stringify(object.file) + '\nReferences: ' + JSON.stringify(object.references));
                              }
                        }
