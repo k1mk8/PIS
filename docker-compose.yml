@@ -19,7 +19,6 @@ services:
       dockerfile: src/main/java/com/pisproject/Dockerfile
 
   app:
-    container_name: app
     image: app-dev
     build:
       context: ./src/main/frontend
