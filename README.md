@@ -11,3 +11,4 @@
 * React
 * Docker
 * Jenkins
+* Jira

@@ -1,13 +1,13 @@
-package com.pisproject.lawtextdb;
+package com.pisproject.lawtextdb.unit;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LawTextDbApplicationTests {
+class LawTextDBApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+//	@Test
+//	void contextLoads() {
+//	}
 
 }
