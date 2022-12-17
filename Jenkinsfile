@@ -59,7 +59,7 @@ pipeline {
 
         stage('Test') {
           steps {
-                sh './gradlew clean test jacocoTestReport'
+                sh './gradlew clean test'
                 sh './gradlew clean integration'
           }
         }
@@ -67,7 +67,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps{
                 withSonarQubeEnv(installationName: 'pisproject-sq') {
-                    sh './gradlew sonarqube'
+                    sh './gradlew test jacocoTestReport sonarqube'
                 }
             }
         }
