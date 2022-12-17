@@ -19,6 +19,10 @@ public class LawTextControllerImpl implements LawTextController {
     @Autowired
     LawTextService lawTextService;
 
+    public void setLawTextService(LawTextService service){
+        lawTextService = service;
+    }
+
     @GetMapping("/")
     public String hello() {
         return "Hello";
