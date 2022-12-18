@@ -1,10 +1,11 @@
-package com.pisproject.lawtextdb.unit;
+package com.pisproject.lawtextdb.unit.controller;
 
 import com.pisproject.lawtextdb.model.mongo.LawText;
 import com.pisproject.lawtextdb.service.LawTextService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.pisproject.lawtextdb.controller.implementation.LawTextControllerImpl;
+import org.mockito.Mock;
 import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.ArrayList;
@@ -12,8 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class LawTextControllerTests {
     LawTextControllerImpl controller;
@@ -105,5 +105,13 @@ class LawTextControllerTests {
         when(service.addLawText(file)).thenReturn(testLawText);
         LawText result = controller.addLawText(file);
         assertEquals(testLawText, result);
+    }
+
+    @Test
+    void testDeleteAllLawTexts(){
+        LawTextService mockService = mock(LawTextService.class);
+        controller.setLawTextService(mockService);
+        String result = controller.deleteAllLawTexts();
+        assertEquals("Deleted all files.", result);
     }
 }
