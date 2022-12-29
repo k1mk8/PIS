@@ -5,7 +5,6 @@ import com.pisproject.lawtextdb.service.LawTextService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.pisproject.lawtextdb.controller.implementation.LawTextControllerImpl;
-import org.mockito.Mock;
 import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.ArrayList;
