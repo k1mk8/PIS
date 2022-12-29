@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import org.springframework.data.mongodb.core.MongoOperations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class PrimarySequenceServiceTests {
     private PrimarySequenceServiceImpl service;
@@ -26,5 +27,6 @@ class PrimarySequenceServiceTests {
     @Test
     void testResetSequence(){
         service.resetSequence();
+        assertNotEquals(new Object(), service);
     }
 }

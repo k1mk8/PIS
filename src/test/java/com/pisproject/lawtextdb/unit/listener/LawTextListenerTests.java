@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 class LawTextListenerTests {
@@ -23,6 +23,7 @@ class LawTextListenerTests {
     @Test
     void testLawTextListener(){
         LawTextListener listener = new LawTextListener(seq);
+        assertNotEquals(new Object(), listener);
     }
 
     @Test

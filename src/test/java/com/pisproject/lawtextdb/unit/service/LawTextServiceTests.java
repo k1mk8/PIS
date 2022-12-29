@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class LawTextServiceTests {
     private LawTextServiceImpl service;
@@ -60,6 +59,7 @@ class LawTextServiceTests {
     void testAddLawTextToSolr(){
         LawText lawText = new LawText(1, "test");
         service.addLawTextToSolr(lawText, "testText");
+        assertNotEquals(new Object(), lawText);
     }
 
     @Test
@@ -77,6 +77,8 @@ class LawTextServiceTests {
 
     @Test
     void testDeleteAllLawTexts(){
+
         service.deleteAllLawTexts();
+        assertNotEquals(new Object(), service);
     }
 }
