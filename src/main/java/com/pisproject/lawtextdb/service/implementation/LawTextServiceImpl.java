@@ -36,6 +36,32 @@ public class LawTextServiceImpl implements LawTextService {
     }
 
     @Override
+    public List<LawText> getAccepted() {
+        List<LawText> lawTexts = lawTextRepository.findAll();
+        List<LawText> acceptedLawTexts = new ArrayList<>();
+
+        for (LawText lawText : lawTexts) {
+            if (lawText.isAccepted())
+                acceptedLawTexts.add(lawText);
+        }
+
+        return acceptedLawTexts;
+    }
+
+    @Override
+    public List<LawText> getNotAccepted() {
+        List<LawText> lawTexts = lawTextRepository.findAll();
+        List<LawText> notAcceptedLawTexts = new ArrayList<>();
+
+        for (LawText lawText : lawTexts) {
+            if (!lawText.isAccepted())
+                notAcceptedLawTexts.add(lawText);
+        }
+
+        return notAcceptedLawTexts;
+    }
+
+    @Override
     public Optional<LawText> getLawTextById(int id) {
         return lawTextRepository.findById(id);
     }

@@ -11,6 +11,8 @@ import java.util.Optional;
 
 public interface LawTextController {
     List<LawText> getAll();
+    List<LawText> getAccepted();
+    List<LawText> getNotAccepted();
     Optional<LawText> getLawTextById(@PathVariable("id") int id);
     ArrayList<Optional<LawText>> getLawTextByName(@PathVariable("name") String name);
     ArrayList<Optional<LawText>> getLawTextByRawText(@PathVariable("rawText") String rawText);

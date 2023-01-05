@@ -31,6 +31,18 @@ public class LawTextControllerImpl implements LawTextController {
     }
 
     @Override
+    @GetMapping("/lawTexts/accepted")
+    public List<LawText> getAccepted() {
+        return lawTextService.getAccepted();
+    }
+
+    @Override
+    @GetMapping("/lawTexts/notAccepted")
+    public List<LawText> getNotAccepted() {
+        return lawTextService.getNotAccepted();
+    }
+
+    @Override
     @GetMapping("/lawTexts/findById/{id}")
     public Optional<LawText> getLawTextById(@PathVariable("id") int id) {
         return lawTextService.getLawTextById(id);
