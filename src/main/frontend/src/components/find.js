@@ -1,4 +1,5 @@
 import React from "react";
+import '../styles/find.css'
 
 class Find extends React.Component{
 
