@@ -1,33 +1,29 @@
 import React from 'react';
-import Tabs from './tabs.js'
-import Add from './addFile.js'
-import Find from './find.js'
-
-import './App.css'
-
-const Tab = ({ children }) => <div className="tab">{children}</div>;
+import Navbar from './components/Navbar.js'
+import './styles/app.css'
+import Find from './components/find'
+import HomePage from './components/homePage.js';
+import Add from './components/addFile'
+import Login from './components/login'
+import "bootstrap/dist/css/bootstrap.min.css"
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 class App extends React.Component{
 
     render() {
         return (
-            <body>
-                <h2 style={{color: "red"}}>PiS Projekt</h2>
-            <Tabs defaultActive={0}>
-                <Tab title="Strona startowa">
-                    <p>Witamy na stronie!</p>
-                </Tab>
-                <Tab title="Wyszukiwanie aktów" t>
-                    <Find/>
-                </Tab>
-                <Tab title="Dodawanie aktów">
-                    <Add/>
-                </Tab>
-                <Tab title="Admin">
-                    <p>Logowanie aktów... Coming soon</p>
-                </Tab>
-            </Tabs>
-            </body>
+            <Router>
+                <div>
+                    <Navbar />
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/stronastartowa" element={<HomePage />} />
+                        <Route path="/wyszukiwanieaktow" element={<Find />} />
+                        <Route path="/dodawanieaktow" element={<Add />} />
+                        <Route path="/admin" element={<Login />} />
+                    </Routes>
+                </div>
+            </Router>
         )
     }
 }
