@@ -16,10 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class LawTextServiceImpl implements LawTextService {
@@ -109,6 +106,26 @@ public class LawTextServiceImpl implements LawTextService {
         Files.deleteIfExists(temp.toPath());
 
         return txt;
+    }
+
+    private void updateReferences() {
+        List<LawText> lawTexts = lawTextRepository.findAll();
+
+        for (LawText lawText : lawTexts) {
+            List<SolrLawText> solrLawTexts =
+                    solrLawTextRepository.findByRawText(lawText.getName());
+
+            for (SolrLawText solrLawText : solrLawTexts) {
+                Optional<LawText> temp = lawTextRepository.findById(solrLawText.getLawTextId());
+                if (temp.isEmpty())
+                    return;
+
+                LawText tempLawText = temp.get();
+                if (!Objects.equals(tempLawText.getId(), lawText.getId())) {
+                    tempLawText.updateReferences(lawText.getId());
+                }
+            }
+        }
     }
 
     @Override
