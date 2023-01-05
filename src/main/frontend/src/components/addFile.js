@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "../styles/addFile.css";
 import UploadService from "./upload-files.service";
 
 export default class Add extends Component {
