@@ -1,0 +1,11 @@
+package com.pisproject.lawtextdb.repository.mongo;
+
+import com.pisproject.lawtextdb.model.mongo.User;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.Optional;
+
+public interface UserRepository extends MongoRepository<User, Integer> {
+    Optional<User> findByUsernameAndToken(String username, String token);
+    Optional<User> findByUsernameAndPassword(String username, String password);
+}
