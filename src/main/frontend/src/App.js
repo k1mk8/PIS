@@ -17,7 +17,7 @@ class App extends React.Component{
                 <Tab title="Strona startowa">
                     <p>Witamy na stronie!</p>
                 </Tab>
-                <Tab title="Wyszukiwanie aktów">
+                <Tab title="Wyszukiwanie aktów" t>
                     <Find/>
                 </Tab>
                 <Tab title="Dodawanie aktów">
