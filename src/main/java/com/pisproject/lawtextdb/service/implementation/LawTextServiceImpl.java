@@ -112,6 +112,9 @@ public class LawTextServiceImpl implements LawTextService {
         List<LawText> lawTexts = lawTextRepository.findAll();
 
         for (LawText lawText : lawTexts) {
+            if (!lawText.isAccepted())
+                continue;
+
             List<SolrLawText> solrLawTexts =
                     solrLawTextRepository.findByRawText(lawText.getName());
 
@@ -121,6 +124,9 @@ public class LawTextServiceImpl implements LawTextService {
                     return;
 
                 LawText tempLawText = temp.get();
+                if (!tempLawText.isAccepted())
+                    continue;
+
                 if (!Objects.equals(tempLawText.getId(), lawText.getId())) {
                     tempLawText.updateReferences(lawText.getId());
                 }
