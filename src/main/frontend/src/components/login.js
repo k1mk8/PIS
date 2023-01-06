@@ -1,38 +1,52 @@
-import React from "react"
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import '../styles/login.css';
 
-class Login extends React.Component {
-    render(){
-        return (
-            <div className="Auth-form-container">
-              <form className="Auth-form">
-                <div className="Auth-form-content">
-                  <h3 className="Auth-form-title">Zaloguj się</h3>
-                  <div className="form-group mt-3">
-                    <label>Email</label>
-                    <input
-                      type="email"
-                      className="form-control mt-1"
-                      placeholder="Email..."
-                    />
-                  </div>
-                  <div className="form-group mt-3">
-                    <label>Hasło</label>
-                    <input
-                      type="password"
-                      className="form-control mt-1"
-                      placeholder="Hasło..."
-                    />
-                  </div>
-                  <div className="d-grid gap-2 mt-3">
-                    <button type="submit" className="btn btn-primary">
-                      Zaloguj
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          )
-    }
+async function loginUser(credentials) {
+ return fetch('http://localhost:8082/login', {
+   method: 'POST',
+   headers: {
+     'Content-Type': 'application/json'
+   },
+   body: JSON.stringify(credentials)
+ })
+   .then(data => data.text())
 }
 
-export default Login;
+export default function Login({ setToken }) {
+  const [username, setUserName] = useState();
+  const [password, setPassword] = useState();
+
+  const handleSubmit = async e => {
+      e.preventDefault();
+      const token = await loginUser({
+        username,
+        password
+      });
+      sessionStorage.setItem('username', username);
+      setToken(token);
+      return token;
+  }
+   return(
+        <div className="login-wrapper">
+          <h1>Please Log In</h1>
+          <form onSubmit={handleSubmit}>
+            <label>
+              <p>Username</p>
+              <input type="text" onChange={e => setUserName(e.target.value)} />
+            </label>
+            <label>
+              <p>Password</p>
+              <input type="password" onChange={e => setPassword(e.target.value)} />
+            </label>
+            <div>
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+  )
+}
+
+Login.propTypes = {
+  setToken: PropTypes.func.isRequired
+};

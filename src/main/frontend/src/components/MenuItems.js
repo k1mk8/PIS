@@ -18,5 +18,15 @@ export const MenuItems = [
         title: 'Admin',
         url: 'admin',
         cName: 'nav-links'
+    },
+    {
+        title: 'Akty',
+        url: 'akty',
+        cName: 'nav-links'
+    },
+    {
+        title: 'Wyloguj',
+        url: 'adminwyloguj',
+        cName: 'nav-links'
     }
 ]
