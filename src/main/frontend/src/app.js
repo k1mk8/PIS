@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './components/Navbar.js'
+import AdminLogout from './components/adminLogout.js'
 import './styles/app.css'
 import Find from './components/find'
 import HomePage from './components/homePage.js';
@@ -38,6 +39,7 @@ function App (){
                         <Route path="/stronastartowa" element={<HomePage />} />
                         <Route path="/wyszukiwanieaktow" element={<Find />} />
                         <Route path="/dodawanieaktow" element={<Add />} />
+                        <Route path="/adminwyloguj" element={<AdminLogout />} />
                         <Route path="/akty" element={<Acts />} />
                     </Routes>
                 </div>

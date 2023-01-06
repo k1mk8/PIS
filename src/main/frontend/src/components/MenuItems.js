@@ -20,8 +20,13 @@ export const MenuItems = [
         cName: 'nav-links'
     },
     {
-            title: 'Akty',
-            url: 'akty',
-            cName: 'nav-links'
+        title: 'Akty',
+        url: 'akty',
+        cName: 'nav-links'
+    },
+    {
+        title: 'Wyloguj',
+        url: 'adminwyloguj',
+        cName: 'nav-links'
     }
 ]
