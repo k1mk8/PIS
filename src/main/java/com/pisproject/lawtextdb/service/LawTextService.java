@@ -11,6 +11,8 @@ public interface LawTextService {
     List<LawText> getAll();
     List<LawText> getAccepted();
     List<LawText> getNotAccepted();
+    String acceptLawText(int id);
+    String deleteLawText(int id);
     Optional<LawText> getLawTextById(int id);
     ArrayList<Optional<LawText>> getLawTextByName(String name);
     ArrayList<Optional<LawText>> getLawTextByRawText(String rawText);

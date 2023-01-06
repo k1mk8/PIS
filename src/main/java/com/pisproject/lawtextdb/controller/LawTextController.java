@@ -13,6 +13,8 @@ public interface LawTextController {
     List<LawText> getAll();
     List<LawText> getAccepted();
     List<LawText> getNotAccepted();
+    String acceptLawText(@PathVariable("id") int id, @RequestBody UserController.AuthRequest req);
+    String deleteLawText(@PathVariable("id") int id, @RequestBody UserController.AuthRequest req);
     Optional<LawText> getLawTextById(@PathVariable("id") int id);
     ArrayList<Optional<LawText>> getLawTextByName(@PathVariable("name") String name);
     ArrayList<Optional<LawText>> getLawTextByRawText(@PathVariable("rawText") String rawText);

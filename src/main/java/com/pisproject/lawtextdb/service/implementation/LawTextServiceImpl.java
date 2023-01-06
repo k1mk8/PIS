@@ -62,6 +62,32 @@ public class LawTextServiceImpl implements LawTextService {
     }
 
     @Override
+    public String acceptLawText(int id) {
+        Optional<LawText> lawText = getLawTextById(id);
+        if (lawText.isEmpty()){
+            return "The law text with provided id does not exist";
+        }
+        lawText.get().setAccepted(true);
+        lawTextRepository.save(lawText.get());
+        return "Successfully accepted law text";
+    }
+
+    @Override
+    public String deleteLawText(int id) {
+        Optional<LawText> lawText = getLawTextById(id);
+        if (lawText.isEmpty()){
+            return "The law text with provided id does not exist in mongo, aborting";
+        }
+        lawTextRepository.delete(lawText.get());
+        Optional<SolrLawText> solrLawText = solrLawTextRepository.findByLawTextId(id);
+        if (solrLawText.isEmpty()){
+            return "The law text with provided id does not exist in solr, deleted from mongo only";
+        }
+        solrLawTextRepository.delete(solrLawText.get());
+        return "Successfully deleted law text";
+    }
+
+    @Override
     public Optional<LawText> getLawTextById(int id) {
         return lawTextRepository.findById(id);
     }

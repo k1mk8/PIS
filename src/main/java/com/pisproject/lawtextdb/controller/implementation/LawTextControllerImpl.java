@@ -1,8 +1,11 @@
 package com.pisproject.lawtextdb.controller.implementation;
 
 import com.pisproject.lawtextdb.controller.LawTextController;
+import com.pisproject.lawtextdb.controller.UserController;
 import com.pisproject.lawtextdb.model.mongo.LawText;
 import com.pisproject.lawtextdb.service.LawTextService;
+import com.pisproject.lawtextdb.service.UserAuthService;
+import com.pisproject.lawtextdb.service.implementation.UserAuthServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +21,8 @@ public class LawTextControllerImpl implements LawTextController {
 
     @Autowired
     LawTextService lawTextService;
+    @Autowired
+    UserAuthService authService;
 
     @GetMapping("/")
     public String hello() {
@@ -40,6 +45,24 @@ public class LawTextControllerImpl implements LawTextController {
     @GetMapping("/lawTexts/notAccepted")
     public List<LawText> getNotAccepted() {
         return lawTextService.getNotAccepted();
+    }
+
+    @Override
+    @PostMapping("/lawTexts/accept/{id}")
+    public String acceptLawText(@PathVariable("id") int id, @RequestBody UserController.AuthRequest req) {
+        if(!authService.checkIfTokenIsValid(req.username, req.token)){
+            return "Could not authenticate admin user";
+        }
+        return lawTextService.acceptLawText(id);
+    }
+
+    @Override
+    @PostMapping("/lawTexts/reject/{id}")
+    public String deleteLawText(@PathVariable("id") int id, @RequestBody UserController.AuthRequest req) {
+        if(!authService.checkIfTokenIsValid(req.username, req.token)){
+            return "Could not authenticate admin user";
+        }
+        return lawTextService.deleteLawText(id);
     }
 
     @Override
