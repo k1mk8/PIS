@@ -9,11 +9,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.util.Base64Utils;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 @EnableMongoRepositories(basePackageClasses = BaseRepository.class)
 @Configuration
@@ -29,16 +27,16 @@ public class MongoDBConfig {
     }
 
     @Bean
-    CommandLineRunner userCommandLineRunner(UserRepository repository) throws NoSuchAlgorithmException {
+    CommandLineRunner userCommandLineRunner(UserRepository repository){
         String pass = "password";
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hash = digest.digest(pass.getBytes(StandardCharsets.UTF_8));
-        String strHash = Base64Utils.encodeToString(hash);
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String strHash = encoder.encode(pass);
+
         return strings -> {
             repository.save(new User(1, "admin", strHash));
             repository.save(new User(2, "admin2", strHash));
             repository.save(new User(3, "admin3", strHash));
         };
     }
-
 }

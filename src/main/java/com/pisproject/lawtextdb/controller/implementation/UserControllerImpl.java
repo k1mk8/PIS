@@ -18,7 +18,7 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @PostMapping("/users")
-    public String createUser(@RequestBody LoginRequest req) throws NoSuchAlgorithmException {
+    public String createUser(@RequestBody LoginRequest req){
         return userAuthService.createUser(req.username, req.password);
     }
 

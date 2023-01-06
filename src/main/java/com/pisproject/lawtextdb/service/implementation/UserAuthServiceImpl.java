@@ -4,6 +4,7 @@ import com.pisproject.lawtextdb.model.mongo.User;
 import com.pisproject.lawtextdb.repository.mongo.UserRepository;
 import com.pisproject.lawtextdb.service.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 
@@ -21,13 +22,12 @@ public class UserAuthServiceImpl implements UserAuthService {
     private UserRepository userRepository;
 
     @Override
-    public String createUser(String username, String password) throws NoSuchAlgorithmException {
+    public String createUser(String username, String password){
         if (userRepository.findByUsername(username).isPresent()){
             return "User with this username already exists";
         }
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-        String passwordHash = Base64Utils.encodeToString(hash);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String passwordHash = encoder.encode(password);
         User user = new User(username, passwordHash);
         userRepository.save(user);
         return user.getUsername();
@@ -40,15 +40,14 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     @Override
     public String addToken(String username, String password) throws NoSuchAlgorithmException {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-        String passwordHash = Base64Utils.encodeToString(hash);
-        Optional<User> user = userRepository.findByUsernameAndPassword(username, passwordHash);
-        if (user.isEmpty()) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isEmpty() || !encoder.matches(password, user.get().getPassword())) {
             return "Invalid login and/or password";
         }
         else{
             String rawToken = UUID.randomUUID().toString();
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] tokenHash = digest.digest(rawToken.getBytes(StandardCharsets.UTF_8));
             String token = Base64Utils.encodeToString(tokenHash);
             user.get().setToken(token);
