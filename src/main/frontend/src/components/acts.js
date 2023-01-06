@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useState } from "react"
 
-class Acts extends React.Component{
+const Acts = () => {
+  const [users, setUsers] = useState([])
 
-    render() {
-        return (
-            <div class="background">
-                <div class="transbox">
-                    <p> Witamy na stronie PiSAT służacej do wyszukiwanie i dodawania aktów prawnych! </p>
-                    <p> Wybierz zakładkę aby rozpocząć</p>
-                </div>
-            </div>
-        )
-    }
+  const fetchData = () => {
+    fetch("http://localhost:8082/lawTexts/notAccepted")
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        setUsers(data)
+      })
+  }
+
+  return (
+    <div>
+      <button onClick={fetchData}>Pokaż niezakceptowane akty</button>
+      {users.length > 0 && (
+        <ul>
+          {users.map(user => (
+            <li key={user.id}> ID: {user.id} Nazwa: {user.name} Data dodania: {user.uploadDate} <button>Akceptuj</button> <button>Odrzuć</button> </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
 }
-export default Acts;
+
+export default Acts
