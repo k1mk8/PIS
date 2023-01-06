@@ -1,16 +1,48 @@
 import React from 'react';
 
 class Acts extends React.Component{
+    constructor(props){
+        super(props);
+    }
 
-    render() {
+    load (url) {
+        return new Promise(async function (resolve) {
+            const res = await fetch(url)
+            resolve(res.json())
+        })
+    }
+
+    showDocUnauthorized(event){
+        const promise = this.load('http://localhost:8082/lawTexts/notAccepted');
+        promise.then((objects) => {
+                for (const object of objects){
+                    alert('Informacje o dokumentach: \nID: ' + JSON.stringify(object.id) + '\nName: ' + JSON.stringify(object.name) + '\nUpload Date: ' + JSON.stringify(object.uploadDate) + '\nAccepted: ' + JSON.stringify(object.accepted) + '\nFile: ' + JSON.stringify(object.file) + '\nReferences: ' + JSON.stringify(object.references));
+                }
+            }
+        );
+        event.preventDefault();
+    }
+
+    showDocAuthorized(event){
+        const promise = this.load('http://localhost:8082/lawTexts/accepted');
+        promise.then((objects) => {
+                for (const object of objects){
+                    alert('Informacje o dokumentach: \nID: ' + JSON.stringify(object.id) + '\nName: ' + JSON.stringify(object.name) + '\nUpload Date: ' + JSON.stringify(object.uploadDate) + '\nAccepted: ' + JSON.stringify(object.accepted) + '\nFile: ' + JSON.stringify(object.file) + '\nReferences: ' + JSON.stringify(object.references));
+                }
+            }
+        );
+        event.preventDefault();
+    }
+
+    render()
+    {
         return (
-            <div class="background">
-                <div class="transbox">
-                    <p> Witamy na stronie PiSAT służacej do wyszukiwanie i dodawania aktów prawnych! </p>
-                    <p> Wybierz zakładkę aby rozpocząć</p>
-                </div>
+            <div>
+                <button onClick={this.showDocUnauthorized.bind(this)}>Niezatwierdzone</button>
+                <button onClick={this.showDocAuthorized.bind(this)}>Zatwierdzone</button>
             </div>
         )
     }
+
 }
 export default Acts;
