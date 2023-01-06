@@ -1,10 +1,8 @@
 import React from 'react';
-import App from "../app";
 
 class Acts extends React.Component{
 
     render() {
-        <App/>;
         return (
             <div class="background">
                 <div class="transbox">

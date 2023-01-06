@@ -1,6 +1,5 @@
 import React from "react";
 import '../styles/find.css'
-import App from "../app";
 
 class AdminLogout extends React.Component{
 
@@ -18,11 +17,11 @@ class AdminLogout extends React.Component{
             })
         })
         sessionStorage.clear();
+        window.location.reload(false);
     }
 
     render()
     {
-        <App/>;
         return (
             <div>
                 <form>
