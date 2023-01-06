@@ -10,8 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 @Document(collection = "lawText")
@@ -23,7 +23,7 @@ public class LawText {
     private LocalDateTime uploadDate;
     private boolean accepted;
     private Binary file;
-    private Set<Integer> references;
+    private Map<Integer, String> references;
 
     public LawText() {
     }
@@ -38,10 +38,10 @@ public class LawText {
         this.uploadDate = LocalDateTime.now();
         this.accepted = false;
         this.file = new Binary(BsonBinarySubType.BINARY, file.getBytes());
-        this.references = new HashSet<>();
+        this.references = new HashMap<>();
     }
 
-    public void updateReferences(Integer id) {
-        this.references.add(id);
+    public void updateReferences(Integer id, String name) {
+        this.references.put(id, name);
     }
 }

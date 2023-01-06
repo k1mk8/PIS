@@ -69,6 +69,7 @@ public class LawTextServiceImpl implements LawTextService {
         }
         lawText.get().setAccepted(true);
         lawTextRepository.save(lawText.get());
+        updateReferences();
         return "Successfully accepted law text";
     }
 
@@ -180,7 +181,7 @@ public class LawTextServiceImpl implements LawTextService {
                     continue;
 
                 if (!Objects.equals(tempLawText.getId(), lawText.getId())) {
-                    tempLawText.updateReferences(lawText.getId());
+                    tempLawText.updateReferences(lawText.getId(), lawText.getName());
                 }
             }
         }
