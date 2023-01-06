@@ -1,48 +1,30 @@
-import React from 'react';
+import React, { useState } from "react"
 
-class Acts extends React.Component{
-    constructor(props){
-        super(props);
-    }
+const Acts = () => {
+  const [users, setUsers] = useState([])
 
-    load (url) {
-        return new Promise(async function (resolve) {
-            const res = await fetch(url)
-            resolve(res.json())
-        })
-    }
+  const fetchData = () => {
+    fetch("http://localhost:8082/lawTexts/notAccepted")
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        setUsers(data)
+      })
+  }
 
-    showDocUnauthorized(event){
-        const promise = this.load('http://localhost:8082/lawTexts/notAccepted');
-        promise.then((objects) => {
-                for (const object of objects){
-                    alert('Informacje o dokumentach: \nID: ' + JSON.stringify(object.id) + '\nName: ' + JSON.stringify(object.name) + '\nUpload Date: ' + JSON.stringify(object.uploadDate) + '\nAccepted: ' + JSON.stringify(object.accepted) + '\nFile: ' + JSON.stringify(object.file) + '\nReferences: ' + JSON.stringify(object.references));
-                }
-            }
-        );
-        event.preventDefault();
-    }
-
-    showDocAuthorized(event){
-        const promise = this.load('http://localhost:8082/lawTexts/accepted');
-        promise.then((objects) => {
-                for (const object of objects){
-                    alert('Informacje o dokumentach: \nID: ' + JSON.stringify(object.id) + '\nName: ' + JSON.stringify(object.name) + '\nUpload Date: ' + JSON.stringify(object.uploadDate) + '\nAccepted: ' + JSON.stringify(object.accepted) + '\nFile: ' + JSON.stringify(object.file) + '\nReferences: ' + JSON.stringify(object.references));
-                }
-            }
-        );
-        event.preventDefault();
-    }
-
-    render()
-    {
-        return (
-            <div>
-                <button onClick={this.showDocUnauthorized.bind(this)}>Niezatwierdzone</button>
-                <button onClick={this.showDocAuthorized.bind(this)}>Zatwierdzone</button>
-            </div>
-        )
-    }
-
+  return (
+    <div>
+      <button onClick={fetchData}>Pokaż niezakceptowane akty</button>
+      {users.length > 0 && (
+        <ul>
+          {users.map(user => (
+            <li key={user.id}> ID: {user.id} Nazwa: {user.name} Data dodania: {user.uploadDate} <button>Akceptuj</button> <button>Odrzuć</button> </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
 }
-export default Acts;
+
+export default Acts
