@@ -22,6 +22,9 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     @Override
     public String createUser(String username, String password) throws NoSuchAlgorithmException {
+        if (userRepository.findByUsername(username).isPresent()){
+            return "User with this username already exists";
+        }
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
         String passwordHash = Base64Utils.encodeToString(hash);
