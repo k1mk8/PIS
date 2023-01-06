@@ -34,6 +34,12 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
     @Override
+    public Boolean checkIfTokenIsValid(String username, String token) {
+        Optional<User> user = loadUserByToken(username, token);
+        return user.isPresent();
+    }
+
+    @Override
     public Optional<User> loadUserByToken(String username, String token) {
         return userRepository.findByUsernameAndToken(username, token);
     }

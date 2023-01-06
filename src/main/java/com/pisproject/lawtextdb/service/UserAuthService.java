@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface UserAuthService {
     public String createUser(String username, String password);
+
+    public Boolean checkIfTokenIsValid(String username, String token);
     public Optional<User> loadUserByToken(String username, String token);
     public String addToken(String username, String password) throws NoSuchAlgorithmException;
     public void deleteToken(String username, String token);
