@@ -17,7 +17,6 @@ const Acts = () => {
   const accept = (id) => {
       const token = sessionStorage.getItem('token');
       const username = sessionStorage.getItem('username');
-      alert('http://localhost:8082/lawTexts/accept/'+id+'');
       fetch('http://localhost:8082/lawTexts/accept/'+id+'', {
          method: 'POST',
          headers: {
@@ -25,12 +24,12 @@ const Acts = () => {
          },
          body: JSON.stringify({username, token})
        })
+       fetchData();
    }
 
    const reject = (id) => {
          const token = sessionStorage.getItem('token');
          const username = sessionStorage.getItem('username');
-         alert('http://localhost:8082/lawTexts/reject/'+id+'');
          fetch('http://localhost:8082/lawTexts/reject/'+id+'', {
             method: 'POST',
             headers: {
@@ -38,18 +37,20 @@ const Acts = () => {
             },
             body: JSON.stringify({username, token})
           })
+          fetchData();
    }
   return (
     <div class="akty">
-      <button className="data" onClick={fetchData}>Pokaż niezakceptowane akty</button>
       {users.length > 0 && (
         <ul class="ak">
           {users.map(user => (
-            <li class="akt" key={user.id}> ID: {user.id} Nazwa: {user.name} Data dodania: {user.uploadDate} <button class="accept" onClick={() => {accept(user.id)}}>Akceptuj</button>
-                <button class="accept" onClick={() => {reject(user.id)}}>Odrzuć</button> </li>
+            <li class="akt" key={user.id}> ID: {user.id} Nazwa: {user.name} Data dodania: {user.uploadDate}
+                <div class="button"> <button class="accept" onClick={() => {accept(user.id)}}>Akceptuj</button>
+                <button class="accept" onClick={() => {reject(user.id)}}>Odrzuć</button></div> </li>
           ))}
         </ul>
       )}
+      <button className="data" onClick={fetchData}>Pokaż niezakceptowane akty</button>
     </div>
   )
 }

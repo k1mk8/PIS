@@ -1,70 +1,56 @@
-import React from "react";
-import '../styles/find.css'
+import React, { useState } from "react"
+import "../styles/find.css"
 
-class Find extends React.Component{
+const Find = () => {
+  const [users, setUsers] = useState([])
+  const [layout, setLayout] = useState();
 
-    constructor(props){
-        super(props);
-        this.state = {value: ''};
-        
-        this.findDoc = this.findDoc.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
+   const findDoc = (name) => {
+         alert(name);
+         fetch('http://localhost:8082/lawTexts/findByName/'+name+'', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then(response => {return response.json()}).then(data => {setUsers(data)})
+   }
 
-    handleChange(event){
-        this.setState({value: event.target.value});
-    }
+   const showDoc = (id) => {
+            fetch('http://localhost:8082/lawTex', {
+               method: 'GET',
+               headers: {
+                 'Content-Type': 'application/json'
+               }
+             })
+      }
 
-    load (url) {
-      return new Promise(async function (resolve, reject) {
-        alert(url);
-        const res = await fetch(url)
-        resolve(res.json())
-      })
-    }
+   const handleSubmit = async e => {
+         e.preventDefault();
+         const token = await findDoc(layout);
+         return token;
+     }
 
-    findDoc(event){
-        alert('Podano taka nazwe dokumentu: ' + this.state.value);
-        if(this.state.value == ''){
-            const promise = this.load('http://localhost:8082/lawTexts');
-            promise.then((objects) => {
-                  for (const object of objects){
-                        alert('Informacje o dokumentach: \nID: ' + JSON.stringify(object.id) + '\nName: ' + JSON.stringify(object.name) + '\nUpload Date: ' + JSON.stringify(object.uploadDate) + '\nAccepted: ' + JSON.stringify(object.accepted) + '\nFile: ' + JSON.stringify(object.file) + '\nReferences: ' + JSON.stringify(object.references));
-                        }
-                  }
-            );
-        }
-        else
-        {
-            const promise = this.load('http://localhost:8082/lawTexts/findByName/'+this.state.value+'');
-                 promise.then((objects) => {
-                       for (const object of objects){
-                             if(object == null){
-                                continue;
-                             }
-                             alert('Informacje o dokumentach: \nID: ' + JSON.stringify(object.id) + '\nName: ' + JSON.stringify(object.name) + '\nUpload Date: ' + JSON.stringify(object.uploadDate) + '\nAccepted: ' + JSON.stringify(object.accepted) + '\nFile: ' + JSON.stringify(object.file) + '\nReferences: ' + JSON.stringify(object.references));
-                             }
-                       }
-                 );
-        }
-        event.preventDefault();
-    }
-
-    render()
-    {
-        return (
-            <div>
-                <form>
-                    <label>
-                        Dokument: {'\n'}
-                    </label>
-                    <div>{'\n'}</div>
-                    <input class="find" type="text" value={this.state.value} onChange={this.handleChange}/>
-                </form>
-                <button onClick={this.findDoc.bind(this)}>Szukaj</button>
-            </div>
-        )
-    }
+  return (
+    <div class="akty">
+    <form onSubmit={handleSubmit}>
+        <label class="cos">
+                  <p>Szukanie Aktów</p>
+                  <input class="user" type="text" onChange={e => setLayout(e.target.value)} />
+                </label>
+                <div>
+                  <button class="logout" type="submit">Szukaj</button>
+                </div>
+              </form>
+      {users.length > 0 && (
+        <ul class="ak">
+          {users.map(user => (
+            <li class="akt" key={user.id}> ID: {user.id} Nazwa: {user.name} Data dodania: {user.uploadDate}
+                <div class="button"> <button class="accept" onClick={() => {showDoc(user.id)}}>Pokaż</button></div> </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
 }
 
-export default Find;
+export default Find

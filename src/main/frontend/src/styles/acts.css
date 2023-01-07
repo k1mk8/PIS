@@ -16,8 +16,7 @@ li.akt{
     margin-left: 50px;
 }
 
-button.accept{
+div.button{
     float: right;
-    right: 50px;
-    padding: 10px;
+    text-align: center;
 }
