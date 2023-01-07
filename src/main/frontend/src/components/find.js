@@ -2,11 +2,11 @@ import React, { useState } from "react"
 import "../styles/find.css"
 
 const Find = () => {
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
   const [layout, setLayout] = useState();
+  const [file, setFile] = useState();
 
    const findDoc = (name) => {
-         alert(name);
          fetch('http://localhost:8082/lawTexts/findByName/'+name+'', {
             method: 'GET',
             headers: {
@@ -15,15 +15,11 @@ const Find = () => {
           }).then(response => {return response.json()}).then(data => {setUsers(data)})
    }
 
-   const showDoc = (id) => {
-            fetch('http://localhost:8082/lawTex', {
-               method: 'GET',
-               headers: {
-                 'Content-Type': 'application/json'
-               }
-             })
-      }
-
+   async function showDoc(id) {
+     const response = await fetch('http://localhost:8082/lawTexts/display/'+id+'');
+     const stringResponse = await response.text();
+     setFile(stringResponse);
+   }
    const handleSubmit = async e => {
          e.preventDefault();
          const token = await findDoc(layout);
@@ -49,8 +45,10 @@ const Find = () => {
           ))}
         </ul>
       )}
+      {file != null && (
+             <embed class="pdf" src={`data:application/pdf;base64,${file}`} />
+            )}
     </div>
   )
 }
-
 export default Find
