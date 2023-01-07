@@ -16,10 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class LawTextServiceImpl implements LawTextService {
@@ -39,8 +36,68 @@ public class LawTextServiceImpl implements LawTextService {
     }
 
     @Override
+    public List<LawText> getAccepted() {
+        List<LawText> lawTexts = lawTextRepository.findAll();
+        List<LawText> acceptedLawTexts = new ArrayList<>();
+
+        for (LawText lawText : lawTexts) {
+            if (lawText.isAccepted())
+                acceptedLawTexts.add(lawText);
+        }
+
+        return acceptedLawTexts;
+    }
+
+    @Override
+    public List<LawText> getNotAccepted() {
+        List<LawText> lawTexts = lawTextRepository.findAll();
+        List<LawText> notAcceptedLawTexts = new ArrayList<>();
+
+        for (LawText lawText : lawTexts) {
+            if (!lawText.isAccepted())
+                notAcceptedLawTexts.add(lawText);
+        }
+
+        return notAcceptedLawTexts;
+    }
+
+    @Override
+    public String acceptLawText(int id) {
+        Optional<LawText> lawText = getLawTextById(id);
+        if (lawText.isEmpty()){
+            return "The law text with provided id does not exist";
+        }
+        lawText.get().setAccepted(true);
+        lawTextRepository.save(lawText.get());
+        updateReferences();
+        return "Successfully accepted law text";
+    }
+
+    @Override
+    public String deleteLawText(int id) {
+        Optional<LawText> lawText = getLawTextById(id);
+        if (lawText.isEmpty()){
+            return "The law text with provided id does not exist in mongo, aborting";
+        }
+        lawTextRepository.delete(lawText.get());
+        Optional<SolrLawText> solrLawText = solrLawTextRepository.findByLawTextId(id);
+        if (solrLawText.isEmpty()){
+            return "The law text with provided id does not exist in solr, deleted from mongo only";
+        }
+        solrLawTextRepository.delete(solrLawText.get());
+        return "Successfully deleted law text";
+    }
+
+    @Override
     public Optional<LawText> getLawTextById(int id) {
         return lawTextRepository.findById(id);
+    }
+
+    @Override
+    public String getLawTextByIdToDisplay(int id) {
+        Optional<LawText> lawText = lawTextRepository.findById(id);
+
+        return lawText.map(text -> Base64.getEncoder().encodeToString(text.getFile().getData())).orElse(null);
     }
 
     @Override
@@ -109,6 +166,32 @@ public class LawTextServiceImpl implements LawTextService {
         Files.deleteIfExists(temp.toPath());
 
         return txt;
+    }
+
+    private void updateReferences() {
+        List<LawText> lawTexts = lawTextRepository.findAll();
+
+        for (LawText lawText : lawTexts) {
+            if (!lawText.isAccepted())
+                continue;
+
+            List<SolrLawText> solrLawTexts =
+                    solrLawTextRepository.findByRawText(lawText.getName());
+
+            for (SolrLawText solrLawText : solrLawTexts) {
+                Optional<LawText> temp = lawTextRepository.findById(solrLawText.getLawTextId());
+                if (temp.isEmpty())
+                    return;
+
+                LawText tempLawText = temp.get();
+                if (!tempLawText.isAccepted())
+                    continue;
+
+                if (!Objects.equals(tempLawText.getId(), lawText.getId())) {
+                    tempLawText.updateReferences(lawText.getId(), lawText.getName());
+                }
+            }
+        }
     }
 
     @Override

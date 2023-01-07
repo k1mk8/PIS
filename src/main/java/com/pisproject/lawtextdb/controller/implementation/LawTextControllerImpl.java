@@ -1,8 +1,10 @@
 package com.pisproject.lawtextdb.controller.implementation;
 
 import com.pisproject.lawtextdb.controller.LawTextController;
+import com.pisproject.lawtextdb.controller.UserController;
 import com.pisproject.lawtextdb.model.mongo.LawText;
 import com.pisproject.lawtextdb.service.LawTextService;
+import com.pisproject.lawtextdb.service.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +20,8 @@ public class LawTextControllerImpl implements LawTextController {
 
     @Autowired
     LawTextService lawTextService;
+    @Autowired
+    UserAuthService authService;
 
     public void setLawTextService(LawTextService service){
         lawTextService = service;
@@ -35,9 +39,45 @@ public class LawTextControllerImpl implements LawTextController {
     }
 
     @Override
+    @GetMapping("/lawTexts/accepted")
+    public List<LawText> getAccepted() {
+        return lawTextService.getAccepted();
+    }
+
+    @Override
+    @GetMapping("/lawTexts/notAccepted")
+    public List<LawText> getNotAccepted() {
+        return lawTextService.getNotAccepted();
+    }
+
+    @Override
+    @PostMapping("/lawTexts/accept/{id}")
+    public String acceptLawText(@PathVariable("id") int id, @RequestBody UserController.AuthRequest req) {
+        if(!authService.checkIfTokenIsValid(req.username, req.token)){
+            return "Could not authenticate admin user";
+        }
+        return lawTextService.acceptLawText(id);
+    }
+
+    @Override
+    @PostMapping("/lawTexts/reject/{id}")
+    public String deleteLawText(@PathVariable("id") int id, @RequestBody UserController.AuthRequest req) {
+        if(!authService.checkIfTokenIsValid(req.username, req.token)){
+            return "Could not authenticate admin user";
+        }
+        return lawTextService.deleteLawText(id);
+    }
+
+    @Override
     @GetMapping("/lawTexts/findById/{id}")
     public Optional<LawText> getLawTextById(@PathVariable("id") int id) {
         return lawTextService.getLawTextById(id);
+    }
+
+    @Override
+    @GetMapping("/lawTexts/{id}.pdf")
+    public String getLawTextByIdToDisplay(@PathVariable("id") int id) {
+        return lawTextService.getLawTextByIdToDisplay(id);
     }
 
     @Override
