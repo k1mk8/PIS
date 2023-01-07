@@ -1,5 +1,5 @@
 import React from "react";
-import '../styles/find.css'
+import '../styles/adminLogout.css'
 
 class AdminLogout extends React.Component{
 
@@ -23,14 +23,14 @@ class AdminLogout extends React.Component{
     render()
     {
         return (
-            <div>
+            <div class="wyloguj">
                 <form>
-                    <label>
+                    <label class="log">
                         Jesteś zalogowany!{'\n'}
                     </label>
                     <div>{'\n'}</div>
                 </form>
-                <button onClick={this.logout.bind(this)}>Wyloguj</button>
+                <button class="logout" onClick={this.logout.bind(this)}>Wyloguj</button>
             </div>
         )
     }

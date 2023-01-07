@@ -29,18 +29,18 @@ export default function Login({ setToken }) {
   }
    return(
         <div className="login-wrapper">
-          <h1>Please Log In</h1>
+          <h1 class="napis">Please Log In</h1>
           <form onSubmit={handleSubmit}>
-            <label>
+            <label class="cos">
               <p>Username</p>
-              <input type="text" onChange={e => setUserName(e.target.value)} />
+              <input class="user" type="text" onChange={e => setUserName(e.target.value)} />
             </label>
-            <label>
+            <label class="cos">
               <p>Password</p>
-              <input type="password" onChange={e => setPassword(e.target.value)} />
+              <input class="user" type="password" onChange={e => setPassword(e.target.value)} />
             </label>
             <div>
-              <button type="submit">Submit</button>
+              <button class="logout" type="submit">Submit</button>
             </div>
           </form>
         </div>

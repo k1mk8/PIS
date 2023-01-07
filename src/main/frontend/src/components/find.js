@@ -59,7 +59,7 @@ class Find extends React.Component{
                         Dokument: {'\n'}
                     </label>
                     <div>{'\n'}</div>
-                    <input typu="text" value={this.state.value} onChange={this.handleChange}/>
+                    <input class="find" type="text" value={this.state.value} onChange={this.handleChange}/>
                 </form>
                 <button onClick={this.findDoc.bind(this)}>Szukaj</button>
             </div>

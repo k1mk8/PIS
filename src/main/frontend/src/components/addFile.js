@@ -76,13 +76,13 @@ export default class Add extends Component {
             </div>
           </div>
         )}
-
-        <label className="btn btn-default">
-          <input type="file" onChange={this.selectFile} />
+        <h1 class="dodawanie"> Proszę dodać dokument </h1>
+        <label class="abc">
+          <input class="dodaj" type="file" onChange={this.selectFile} />
         </label>
 
         <button
-          className="btn btn-success"
+          class="btn btn-success"
           disabled={!selectedFiles}
           onClick={this.upload}
         >

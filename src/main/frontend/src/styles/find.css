@@ -11,8 +11,8 @@ label {
     font-size: 30px;
 }
 
-input[type=text] {
-    width: 100%;
+input.find {
+    width: 50%;
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 4px;
