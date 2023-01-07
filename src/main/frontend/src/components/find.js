@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import "../styles/find.css"
+import ShowDoc from './showDoc'
 
 const Find = () => {
   const [users, setUsers] = useState([]);
@@ -15,11 +16,26 @@ const Find = () => {
           }).then(response => {return response.json()}).then(data => {setUsers(data)})
    }
 
+    const sleep = ms => new Promise(
+      resolve => setTimeout(resolve, ms)
+    );
+
    async function showDoc(id) {
      const response = await fetch('http://localhost:8082/lawTexts/display/'+id+'');
      const stringResponse = await response.text();
-     setFile(stringResponse);
+     await setFile(stringResponse);
    }
+
+   async function showDoc2(id) {
+        await sessionStorage.setItem('file', file);
+      }
+
+   const newWindow = (id) => {
+           showDoc(id);
+           showDoc2();
+           window.open('http://localhost:3000/dokument');
+      }
+
    const handleSubmit = async e => {
          e.preventDefault();
          const token = await findDoc(layout);
@@ -41,13 +57,10 @@ const Find = () => {
         <ul class="ak">
           {users.map(user => (
             <li class="akt" key={user.id}> ID: {user.id} Nazwa: {user.name} Data dodania: {user.uploadDate}
-                <div class="button"> <button class="accept" onClick={() => {showDoc(user.id)}}>Pokaż</button></div> </li>
+                <div class="button"> <button class="accept" onClick={() => {newWindow(user.id)}}>Pokaż</button></div> </li>
           ))}
         </ul>
       )}
-      {file != null && (
-             <embed class="pdf" src={`data:application/pdf;base64,${file}`} />
-            )}
     </div>
   )
 }

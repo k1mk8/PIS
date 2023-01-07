@@ -1,31 +1,17 @@
-const RenderInWindow = (props) => {
-  const [container, setContainer] = useState(null);
-  const newWindow = useRef(null);
+import file from './find.js'
+import '../styles/showDoc.css'
+import React, { useState } from "react"
 
-  useEffect(() => {
-    // Create container element on client-side
-    setContainer(document.createElement("div"));
-  }, []);
+    export default function ShowDoc(){
+     const getPDF = () => {
+        const tokenString = sessionStorage.getItem('file');
+        const userToken = tokenString;
+        return userToken
+      }
 
-  useEffect(() => {
-    // When container is ready
-    if (container) {
-      // Create window
-      newWindow.current = window.open(
-        "",
-        "",
-        "width=600,height=400,left=200,top=200"
-      );
-      // Append container
-      newWindow.current.document.body.appendChild(container);
+      const [PDF, setPDF] = useState(getPDF());
 
-      // Save reference to window for cleanup
-      const curWindow = newWindow.current;
-
-      // Return cleanup function
-      return () => curWindow.close();
-    }
-  }, [container]);
-
-  return container && createPortal(props.children, container);
-};
+        return (<div class="wyn">
+            <embed class="pdf" src={`data:application/pdf;base64,${PDF}`} />
+            </div>)
+}
