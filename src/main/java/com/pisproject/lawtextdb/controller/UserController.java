@@ -1,11 +1,8 @@
 package com.pisproject.lawtextdb.controller;
 
-import com.pisproject.lawtextdb.model.mongo.User;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 public interface UserController {
 

@@ -53,7 +53,7 @@ public class LawTextControllerImpl implements LawTextController {
     @Override
     @PostMapping("/lawTexts/accept/{id}")
     public String acceptLawText(@PathVariable("id") int id, @RequestBody UserController.AuthRequest req) {
-        if(!authService.checkIfTokenIsValid(req.username, req.token)){
+        if(Boolean.FALSE.equals(authService.checkIfTokenIsValid(req.username, req.token))){
             return "Could not authenticate admin user";
         }
         return lawTextService.acceptLawText(id);
@@ -62,7 +62,7 @@ public class LawTextControllerImpl implements LawTextController {
     @Override
     @PostMapping("/lawTexts/reject/{id}")
     public String deleteLawText(@PathVariable("id") int id, @RequestBody UserController.AuthRequest req) {
-        if(!authService.checkIfTokenIsValid(req.username, req.token)){
+        if(Boolean.FALSE.equals(authService.checkIfTokenIsValid(req.username, req.token))){
             return "Could not authenticate admin user";
         }
         return lawTextService.deleteLawText(id);

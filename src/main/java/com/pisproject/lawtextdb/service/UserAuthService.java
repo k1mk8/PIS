@@ -3,7 +3,6 @@ package com.pisproject.lawtextdb.service;
 import com.pisproject.lawtextdb.model.mongo.User;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 import java.util.Optional;
 
 public interface UserAuthService {
