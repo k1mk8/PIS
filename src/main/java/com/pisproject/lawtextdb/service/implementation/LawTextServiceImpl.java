@@ -94,6 +94,13 @@ public class LawTextServiceImpl implements LawTextService {
     }
 
     @Override
+    public String getLawTextByIdToDisplay(int id) {
+        Optional<LawText> lawText = lawTextRepository.findById(id);
+
+        return lawText.map(text -> Base64.getEncoder().encodeToString(text.getFile().getData())).orElse(null);
+    }
+
+    @Override
     public ArrayList<Optional<LawText>> getLawTextByName(String name) {
         List<SolrLawText> solrLawTexts = solrLawTextRepository.findByName(name);
         ArrayList<Optional<LawText>> lawTexts = new ArrayList<>();

@@ -5,7 +5,6 @@ import com.pisproject.lawtextdb.controller.UserController;
 import com.pisproject.lawtextdb.model.mongo.LawText;
 import com.pisproject.lawtextdb.service.LawTextService;
 import com.pisproject.lawtextdb.service.UserAuthService;
-import com.pisproject.lawtextdb.service.implementation.UserAuthServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -69,6 +68,12 @@ public class LawTextControllerImpl implements LawTextController {
     @GetMapping("/lawTexts/findById/{id}")
     public Optional<LawText> getLawTextById(@PathVariable("id") int id) {
         return lawTextService.getLawTextById(id);
+    }
+
+    @Override
+    @GetMapping("/lawTexts/{id}.pdf")
+    public String getLawTextByIdToDisplay(@PathVariable("id") int id) {
+        return lawTextService.getLawTextByIdToDisplay(id);
     }
 
     @Override
