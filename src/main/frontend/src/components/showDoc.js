@@ -2,6 +2,9 @@ import file from './find.js'
 import '../styles/showDoc.css'
 import React, { useState } from "react"
 
+
+
+
     export default function ShowDoc(){
      const getPDF = () => {
         const tokenString = sessionStorage.getItem('file');
