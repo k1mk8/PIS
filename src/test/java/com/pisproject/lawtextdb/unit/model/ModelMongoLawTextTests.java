@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockMultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,5 +28,16 @@ class ModelMongoLawTextTests {
         catch(IOException e){
             fail();
         }
+    }
+
+    @Test
+    void testUpdateReferences() throws IOException {
+        MockMultipartFile file = new MockMultipartFile("test", new byte[1]);
+        LawText lawText = new LawText(file);
+        lawText.updateReferences(2, "lawText2");
+        Map<Integer, String> result = lawText.getReferences();
+        Map<Integer, String> expected = new HashMap<>();
+        expected.put(2, "lawText2");
+        assertEquals(expected, result);
     }
 }
