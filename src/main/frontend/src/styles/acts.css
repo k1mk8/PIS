@@ -1,0 +1,22 @@
+ul.ak{
+    padding: 0px;
+}
+
+div.akty{
+    width: 100%;
+    button-align: right;
+    li-align: left;
+}
+
+li.akt{
+    font-family: Aharoni;
+    padding: 20px;
+    font-size: 25px;
+    text-align: left;
+    margin-left: 50px;
+}
+
+div.button{
+    float: right;
+    text-align: center;
+}
