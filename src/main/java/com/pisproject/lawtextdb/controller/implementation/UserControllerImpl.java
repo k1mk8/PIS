@@ -23,12 +23,6 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    @GetMapping("/users")
-    public List<User> getUsers(){
-        return userAuthService.getAll();
-    }
-
-    @Override
     @PostMapping("/login")
     public String getLoginToken(@RequestBody LoginRequest req) throws NoSuchAlgorithmException {
         return userAuthService.addToken(req.username, req.password);

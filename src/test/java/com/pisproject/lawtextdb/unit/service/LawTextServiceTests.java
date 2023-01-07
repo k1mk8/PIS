@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -103,6 +104,15 @@ class LawTextServiceTests {
     void testGetLawTextById(){
         Optional<LawText> result = service.getLawTextById(1);
         assertEquals(Optional.empty(), result);
+    }
+
+    @Test
+    void testGetLawTextByIdToDisplay() throws IOException {
+        MockMultipartFile file = new MockMultipartFile("test", "test.pdf", "pdf", new byte[1]);
+        Optional<LawText> lawText = Optional.of(new LawText(file));
+        when(lawTextRepository.findById(1)).thenReturn(lawText);
+        String result = service.getLawTextByIdToDisplay(1);
+        assertEquals("AA==", result);
     }
 
     @Test

@@ -13,5 +13,4 @@ public interface UserAuthService {
     public Optional<User> loadUserByToken(String username, String token);
     public String addToken(String username, String password) throws NoSuchAlgorithmException;
     public void deleteToken(String username, String token);
-    public List<User> getAll();
 }

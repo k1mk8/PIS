@@ -70,8 +70,4 @@ public class UserAuthServiceImpl implements UserAuthService {
         }
     }
 
-    public List<User> getAll(){
-        return userRepository.findAll();
-    }
-
 }

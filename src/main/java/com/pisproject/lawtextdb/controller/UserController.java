@@ -30,7 +30,6 @@ public interface UserController {
     }
 
     public String createUser(@RequestBody LoginRequest req) throws NoSuchAlgorithmException;
-    public List<User> getUsers();
     String getLoginToken(@RequestBody LoginRequest req) throws NoSuchAlgorithmException;
     public void deleteLoginToken(@RequestBody AuthRequest req);
 }
