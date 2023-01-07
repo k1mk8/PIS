@@ -1,12 +1,13 @@
 import React, { useState } from "react"
 import "../styles/find.css"
+import ShowDoc from './showDoc'
 
 const Find = () => {
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
   const [layout, setLayout] = useState();
+  const [file, setFile] = useState();
 
    const findDoc = (name) => {
-         alert(name);
          fetch('http://localhost:8082/lawTexts/findByName/'+name+'', {
             method: 'GET',
             headers: {
@@ -15,13 +16,20 @@ const Find = () => {
           }).then(response => {return response.json()}).then(data => {setUsers(data)})
    }
 
-   const showDoc = (id) => {
-            fetch('http://localhost:8082/lawTex', {
-               method: 'GET',
-               headers: {
-                 'Content-Type': 'application/json'
-               }
-             })
+   async function showDoc(id) {
+     const response = await fetch('http://localhost:8082/lawTexts/display/'+id+'');
+     const stringResponse = await response.text();
+     await setFile(stringResponse);
+   }
+
+   async function showDoc2(id) {
+        await sessionStorage.setItem('file', file);
+      }
+
+   const newWindow = (id) => {
+           showDoc(id);
+           showDoc2();
+           window.open('http://localhost:3000/dokument');
       }
 
    const handleSubmit = async e => {
@@ -45,12 +53,11 @@ const Find = () => {
         <ul class="ak">
           {users.map(user => (
             <li class="akt" key={user.id}> ID: {user.id} Nazwa: {user.name} Data dodania: {user.uploadDate}
-                <div class="button"> <button class="accept" onClick={() => {showDoc(user.id)}}>Pokaż</button></div> </li>
+                <div class="button"> <button class="accept" onClick={() => {newWindow(user.id)}}>Pokaż</button></div> </li>
           ))}
         </ul>
       )}
     </div>
   )
 }
-
 export default Find
