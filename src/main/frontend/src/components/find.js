@@ -7,6 +7,8 @@ const Find = () => {
   const [layout, setLayout] = useState();
   const [file, setFile] = useState();
   const [id, setId] = useState();
+  const [title, setTitle] = useState();
+  const [content, setContent] = useState();
   sessionStorage.clear();
 
    const findDoc = (name) => {
@@ -19,14 +21,24 @@ const Find = () => {
                         }
                       }).then(response => {return response.json()}).then(data => {setUsers(data)})
         }
-        else {
+        else if(title==1){
             fetch('http://localhost:8082/lawTexts/findByName/'+name+'', {
                         method: 'GET',
                         headers: {
                           'Content-Type': 'application/json'
                         }
                       }).then(response => {return response.json()}).then(data => {setUsers(data)})
+            setTitle(0);
         }
+        else if(content==1){
+            fetch('http://localhost:8082/lawTexts/findByRawText/'+name+'', {
+                                    method: 'GET',
+                                    headers: {
+                                      'Content-Type': 'application/json'
+                                    }
+                                  }).then(response => {return response.json()}).then(data => {setUsers(data)})
+        }
+        setContent(0);
    }
 
    async function showDoc(id) {
@@ -65,7 +77,7 @@ const Find = () => {
                   <input class="user" type="text" onChange={e => setLayout(e.target.value)} />
                 </label>
                 <div>
-                  <button class="logout" type="submit">Szukaj</button>
+                  <button class="logout" type="submit" onClick={e => setTitle(1)}>Szukaj po nazwie</button> <button class="logout" type="submit" onClick={e => setContent(1)}>Szukaj po zawartości</button>
                 </div>
               </form>
       {users.length > 0 && (
