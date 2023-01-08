@@ -56,7 +56,7 @@ const Find = () => {
         e.preventDefault();
         const file = await showDoc(id)
         localStorage.setItem('file', file);
-        window.open('http://localhost:3000/dokument');
+        window.open('http://34.235.25.155:3000/dokument');
     }
 
    const handleSubmit = async e => {
