@@ -5,7 +5,7 @@ const Acts = () => {
   const [users, setUsers] = useState([])
 
   const fetchData = () => {
-    fetch("http://localhost:8082/lawTexts/notAccepted")
+    fetch("http://34.235.25.155:8082/lawTexts/notAccepted")
       .then(response => {
         return response.json()
       })
@@ -17,7 +17,7 @@ const Acts = () => {
   const accept = (id) => {
       const token = sessionStorage.getItem('token');
       const username = sessionStorage.getItem('username');
-      fetch('http://localhost:8082/lawTexts/accept/'+id+'', {
+      fetch('http://34.235.25.155:8082/lawTexts/accept/'+id+'', {
          method: 'POST',
          headers: {
            'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ const Acts = () => {
    const reject = (id) => {
          const token = sessionStorage.getItem('token');
          const username = sessionStorage.getItem('username');
-         fetch('http://localhost:8082/lawTexts/reject/'+id+'', {
+         fetch('http://34.235.25.155:8082/lawTexts/reject/'+id+'', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

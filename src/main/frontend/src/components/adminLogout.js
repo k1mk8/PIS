@@ -6,7 +6,7 @@ class AdminLogout extends React.Component{
     async logout() {
         const username = sessionStorage.getItem('username');
         const token = sessionStorage.getItem('token');
-        fetch('http://localhost:8082/logout', {
+        fetch('http://34.235.25.155:8082/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -14,7 +14,7 @@ const Find = () => {
    const findDoc = (name) => {
 
         if(!name){
-            fetch('http://localhost:8082/lawTexts', {
+            fetch('http://34.235.25.155:8082/lawTexts', {
                         method: 'GET',
                         headers: {
                           'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ const Find = () => {
                       }).then(response => {return response.json()}).then(data => {setUsers(data)})
         }
         else if(title==1){
-            fetch('http://localhost:8082/lawTexts/findByName/'+name+'', {
+            fetch('http://34.235.25.155:8082/lawTexts/findByName/'+name+'', {
                         method: 'GET',
                         headers: {
                           'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ const Find = () => {
             setTitle(0);
         }
         else if(content==1){
-            fetch('http://localhost:8082/lawTexts/findByRawText/'+name+'', {
+            fetch('http://34.235.25.155:8082/lawTexts/findByRawText/'+name+'', {
                                     method: 'GET',
                                     headers: {
                                       'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ const Find = () => {
    }
 
    async function showDoc(id) {
-     const response = await fetch('http://localhost:8082/lawTexts/display/'+id+'');
+     const response = await fetch('http://34.235.25.155:8082/lawTexts/display/'+id+'');
      const stringResponse = await response.text();
      await setFile(stringResponse);
      return stringResponse
@@ -52,11 +52,6 @@ const Find = () => {
         await localStorage.setItem('file', file);
       }
 
-   const newWindow = (id) => {
-           showDoc(id);
-           showDoc2();
-           window.open('http://localhost:3000/dokument');
-      }
     const handleDoc = async e => {
         e.preventDefault();
         const file = await showDoc(id)
