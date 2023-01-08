@@ -13,7 +13,8 @@ public class User {
     private String password;
     private String token;
 
-    public User(){};
+    public User(){
+    }
 
     public User(String username, String password){
         this.username = username;

@@ -11,7 +11,6 @@ import org.springframework.util.Base64Utils;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -68,10 +67,6 @@ public class UserAuthServiceImpl implements UserAuthService {
             user.get().setToken(null);
             userRepository.save(user.get());
         }
-    }
-
-    public List<User> getAll(){
-        return userRepository.findAll();
     }
 
 }

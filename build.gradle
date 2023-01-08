@@ -14,13 +14,14 @@ plugins {
 	id 'java'
 	id 'maven-publish'
 	id "org.sonarqube" version "3.4.0.2513"
+	id "jacoco"
 }
 
 jar {
 	enabled = false
 }
 
-version = "0.2.0"
+version = "0.2.2"
 apply plugin: 'com.dipien.semantic-version'
 apply plugin: 'java'
 
@@ -103,5 +104,18 @@ publishing {
 sonarqube {
 	properties {
 		property "sonar.projectKey", "pisproject"
+	}
+}
+
+jacocoTestReport {
+	reports {
+		xml.enabled true
+	}
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					"**/config/*"
+			])
+		}))
 	}
 }

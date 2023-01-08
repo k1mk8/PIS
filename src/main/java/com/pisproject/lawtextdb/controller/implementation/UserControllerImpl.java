@@ -1,13 +1,11 @@
 package com.pisproject.lawtextdb.controller.implementation;
 
 import com.pisproject.lawtextdb.controller.UserController;
-import com.pisproject.lawtextdb.model.mongo.User;
 import com.pisproject.lawtextdb.service.implementation.UserAuthServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
@@ -20,12 +18,6 @@ public class UserControllerImpl implements UserController {
     @PostMapping("/users")
     public String createUser(@RequestBody LoginRequest req){
         return userAuthService.createUser(req.username, req.password);
-    }
-
-    @Override
-    @GetMapping("/users")
-    public List<User> getUsers(){
-        return userAuthService.getAll();
     }
 
     @Override

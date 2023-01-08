@@ -67,7 +67,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps{
                 withSonarQubeEnv(installationName: 'pisproject-sq') {
-                    sh './gradlew sonarqube'
+                    sh './gradlew test jacocoTestReport sonarqube'
                 }
             }
         }
