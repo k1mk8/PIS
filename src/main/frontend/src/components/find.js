@@ -7,14 +7,26 @@ const Find = () => {
   const [layout, setLayout] = useState();
   const [file, setFile] = useState();
   const [id, setId] = useState();
+  sessionStorage.clear();
 
    const findDoc = (name) => {
-         fetch('http://localhost:8082/lawTexts/findByName/'+name+'', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }).then(response => {return response.json()}).then(data => {setUsers(data)})
+
+        if(!name){
+            fetch('http://localhost:8082/lawTexts', {
+                        method: 'GET',
+                        headers: {
+                          'Content-Type': 'application/json'
+                        }
+                      }).then(response => {return response.json()}).then(data => {setUsers(data)})
+        }
+        else {
+            fetch('http://localhost:8082/lawTexts/findByName/'+name+'', {
+                        method: 'GET',
+                        headers: {
+                          'Content-Type': 'application/json'
+                        }
+                      }).then(response => {return response.json()}).then(data => {setUsers(data)})
+        }
    }
 
    async function showDoc(id) {
@@ -25,7 +37,7 @@ const Find = () => {
    }
 
    async function showDoc2(id) {
-        await sessionStorage.setItem('file', file);
+        await localStorage.setItem('file', file);
       }
 
    const newWindow = (id) => {
@@ -36,7 +48,7 @@ const Find = () => {
     const handleDoc = async e => {
         e.preventDefault();
         const file = await showDoc(id)
-        sessionStorage.setItem('file', file);
+        localStorage.setItem('file', file);
         window.open('http://localhost:3000/dokument');
     }
 
@@ -45,7 +57,6 @@ const Find = () => {
          const token = await findDoc(layout);
          return token;
      }
-
   return (
     <div class="akty">
     <form onSubmit={handleSubmit}>
