@@ -71,7 +71,7 @@ public class LawTextControllerImpl implements LawTextController {
     }
 
     @Override
-    @GetMapping("/lawTexts/{id}.pdf")
+    @GetMapping("/lawTexts/display/{id}")
     public String getLawTextByIdToDisplay(@PathVariable("id") int id) {
         return lawTextService.getLawTextByIdToDisplay(id);
     }

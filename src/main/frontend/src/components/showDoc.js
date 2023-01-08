@@ -7,7 +7,7 @@ import React, { useState } from "react"
 
     export default function ShowDoc(){
      const getPDF = () => {
-        const tokenString = sessionStorage.getItem('file');
+        const tokenString = localStorage.getItem('file');
         const userToken = tokenString;
         return userToken
       }
