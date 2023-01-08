@@ -1,0 +1,21 @@
+div.background {
+    background: url(../images/documents.jpg) repeat;
+    background-size: cover;
+    border: 2px solid black;
+    width: 1920px;
+    height: 895px;
+}
+
+  div.transbox {
+    margin: 30px;
+    background-color: #ffffff;
+    border: 1px solid black;
+    opacity: 0.6;
+  }
+
+  div.transbox p {
+    margin: 5%;
+    font-weight: bold;
+    color: #000000;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
