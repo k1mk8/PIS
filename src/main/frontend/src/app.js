@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import useToken from './components/useToken';
 import Acts from './components/acts'
+import ShowDoc from './components/showDoc'
 
 function App (){
     const { token, setToken } = useToken();
@@ -24,6 +25,7 @@ function App (){
                                <Route path="/wyszukiwanieaktow" element={<Find />} />
                                <Route path="/dodawanieaktow" element={<Add />} />
                                <Route path="/admin" element={<Login setToken={setToken} />} />
+                               <Route path="/dokument" element={<ShowDoc />} />
                            </Routes>
                        </div>
                    </Router>
